@@ -72,3 +72,9 @@ dependencies {
     implementation 'com.intuit.sdp:sdp-android:1.1.0'
 
 }
+
+
+// Allow hilt references to generated code
+kapt {
+    correctErrorTypes = true
+}
