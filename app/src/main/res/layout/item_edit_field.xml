@@ -5,7 +5,6 @@
     style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
     android:layout_height="wrap_content"
     app:boxBackgroundMode="outline"
-    app:boxCornerRadius="8dp"
     app:boxStrokeColor="@color/my_outline_color"
     app:boxStrokeWidth="2dp"
     android:layout_marginBottom="@dimen/_6sdp"
