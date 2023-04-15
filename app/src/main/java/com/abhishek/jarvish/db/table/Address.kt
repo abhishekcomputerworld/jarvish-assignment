@@ -7,15 +7,15 @@ import androidx.room.PrimaryKey
 @Entity(tableName = "addresses")
 data class Address(
     @PrimaryKey(autoGenerate = true)
-    val id: Int = 0,
+    var id: Int? = 0,
     @ColumnInfo(name = "house_no")
-    val userId: Int,
+    var userId: Int?,
     @ColumnInfo(name = "area")
-    val address: String,
+    var address: String?,
     @ColumnInfo(name = "pin_code")
-    val pinCode: String,
+    var pinCode: Int?,
     @ColumnInfo(name = "city")
-    val city: String,
+    var city: String?,
     @ColumnInfo(name = "state")
-    val state: String
+    var state: String?
 )

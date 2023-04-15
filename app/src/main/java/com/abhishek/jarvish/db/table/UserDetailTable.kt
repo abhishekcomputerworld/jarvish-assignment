@@ -29,20 +29,20 @@ data class UserDetailTable(
         parentColumn = "id",
         entityColumn = "userId"
     )
-    val mobileList: List<MobileNo>,
+    var mobileList: List<MobileNo>,
 
     @Relation(
         parentColumn = "id",
         entityColumn = "userId"
     )
-    val addressList: List<Address>,
+    var addressList: List<Address>,
 
 
     @Relation(
         parentColumn = "id",
         entityColumn = "userId"
     )
-    val educationList: List<Education>
+    var educationList: List<Education>
 
 
 )

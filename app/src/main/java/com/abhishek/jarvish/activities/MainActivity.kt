@@ -11,7 +11,10 @@ import android.view.Menu
 import android.view.MenuItem
 import com.abhishek.jarvish.R
 import com.abhishek.jarvish.databinding.ActivityMainBinding
+import dagger.hilt.EntryPoint
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
 
     private lateinit var appBarConfiguration: AppBarConfiguration
@@ -30,12 +33,4 @@ class MainActivity : AppCompatActivity() {
 
     }
 
-
-
-
-    override fun onSupportNavigateUp(): Boolean {
-        val navController = findNavController(R.id.nav_host_fragment_content_main)
-        return navController.navigateUp(appBarConfiguration)
-                || super.onSupportNavigateUp()
-    }
 }

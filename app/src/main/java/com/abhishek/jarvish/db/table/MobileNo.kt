@@ -12,6 +12,6 @@ data class MobileNo(
     var id: Int?,
 
     @ColumnInfo(name = "mobile_no")
-    var firstName: String?,
+    var mobileNo: String?,
 
     )
