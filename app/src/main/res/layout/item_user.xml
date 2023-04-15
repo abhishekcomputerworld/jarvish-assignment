@@ -5,7 +5,8 @@
 
         <variable
             name="User"
-            type="com.abhishek.jarvish.db.table.UserDetailTable" />
+            type="com.abhishek.jarvish.db.table.UserDetailWithRelations" />
+
         <variable
             name="ImageBitmapString"
             type="com.abhishek.jarvish.utils.ImageBitmapString" />
@@ -22,7 +23,7 @@
         app:cardCornerRadius="@dimen/_12sdp"
         app:cardElevation="4dp">
 
-       <!-- <androidx.constraintlayout.widget.ConstraintLayout
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:padding="@dimen/_12sdp">
@@ -40,8 +41,7 @@
                     android:id="@+id/ic_profile_image"
                     android:layout_width="@dimen/_45sdp"
                     android:layout_height="@dimen/_45sdp"
-                    app:srcCompatCustom="@{ImageBitmapString.stringToBitMap(User.profileImage)}"
-                     />
+                    app:srcCompatCustom="@{ImageBitmapString.stringToBitMap(User.userDetail.profileImage)}" />
 
                 <LinearLayout
                     android:layout_width="wrap_content"
@@ -55,7 +55,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:fontFamily="@font/lato_bold"
-                        android:text="@{User.firstName}"
+                        android:text="@{User.userDetail.firstName}"
                         android:textAlignment="center"
                         android:textColor="@color/black"
                         android:textSize="@dimen/_13sdp" />
@@ -65,7 +65,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="@dimen/_3sdp"
                         android:fontFamily="@font/lato"
-                        android:text="@{User.mobileList.get(0).mobileNo}"
+                        android:text="@{User.mobileNumbers.get(0).mobileNo}"
                         android:textAlignment="center"
                         android:textColor="#888888"
                         android:textSize="@dimen/_12sdp" />
@@ -102,7 +102,7 @@
                     android:layout_marginStart="@dimen/_12sdp"
                     android:layout_toEndOf="@id/iv_address"
                     android:fontFamily="@font/lato_bold"
-                    android:text="@{User.addressList.get(0).component1() + ' ' + User.addressList.get(0).component2()}"
+                    android:text="@{String.valueOf(User.addresses.get(0).pinCode) + ' ' + String.valueOf(User.addresses.get(0).houseNo)}"
                     android:textColor="@color/black"
                     android:textSize="@dimen/_13sdp" />
             </RelativeLayout>
@@ -145,7 +145,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:fontFamily="@font/lato_black"
-                        android:text="@{User.educationList.get(0).level}"
+
                         android:textColor="@color/black"
                         android:textSize="@dimen/_13sdp" />
 
@@ -154,7 +154,6 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="@dimen/_2sdp"
                         android:fontFamily="@font/lato"
-                        android:text="@{User.educationList.get(0).start_year}"
                         android:textColor="#6B6868"
                         android:textSize="@dimen/_13sdp" />
 
@@ -163,12 +162,12 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="@dimen/_2sdp"
                         android:fontFamily="@font/lato"
-                        android:text="@{User.educationList.get(0).college}"
+                        android:text="@{User.educations.get(0).college}"
                         android:textColor="#342E2E"
                         android:textSize="@dimen/_13sdp" />
                 </LinearLayout>
             </RelativeLayout>
-        </androidx.constraintlayout.widget.ConstraintLayout>-->
+        </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.cardview.widget.CardView>
 
 </layout>

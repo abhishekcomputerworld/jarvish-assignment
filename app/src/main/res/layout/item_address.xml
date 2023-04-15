@@ -6,16 +6,29 @@
     android:paddingTop="@dimen/_12sdp"
     android:paddingBottom="@dimen/_12sdp">
 
-    <TextView
-        android:id="@+id/tv_address"
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="@dimen/_12sdp"
-        android:fontFamily="@font/lato_bold"
-        android:paddingEnd="@dimen/_4sdp"
-        android:text="Address"
-        android:textColor="#0D0D0D"
-        android:textSize="@dimen/_14sdp" />
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:id="@+id/tv_address"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/_12sdp"
+            android:fontFamily="@font/lato_bold"
+            android:text="Address"
+            android:textColor="#0D0D0D"
+            android:textSize="@dimen/_14sdp" />
+
+        <ImageView
+            android:id="@+id/iv_delete"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_marginEnd="@dimen/_4sdp"
+            android:src="@drawable/ic_delete" />
+    </RelativeLayout>
+
 
     <include
         android:id="@+id/et_house_no"

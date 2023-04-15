@@ -10,32 +10,34 @@
 
     <com.google.android.material.textfield.TextInputLayout xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
-        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
         android:id="@+id/text_input_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        app:expandedHintEnabled="false"
         android:layout_marginBottom="@dimen/_12sdp"
         app:boxBackgroundMode="outline"
-        android:hint=""
-        android:textSize="@dimen/_11sdp"
-        app:expandedHintEnabled="false"
         app:boxBackgroundColor="@color/white"
-        app:hintEnabled="true"
+        android:textSize="@dimen/_11sdp"
         app:boxStrokeColor="@color/my_outline_color"
         app:boxStrokeWidth="2dp"
         app:hintTextColor="@color/my_hint_color">
 
-        <com.google.android.material.textfield.TextInputEditText
+
+
+        <AutoCompleteTextView
             android:id="@+id/text_input_edittext"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:inputType="none"
+            android:imeOptions="actionDone"
+            android:textColorHint="#D3D3D3"
+            android:textSize="@dimen/_15sdp"
             android:fontFamily="@font/lato"
             android:hint=""
-            android:inputType="text"
             android:maxLines="1"
             android:text=""
-            android:textColorHint="#D3D3D3"
-            android:textSize="@dimen/_15sdp" />
+            />
 
     </com.google.android.material.textfield.TextInputLayout>
 </layout>

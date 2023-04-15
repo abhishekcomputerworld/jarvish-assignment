@@ -6,10 +6,11 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.abhishek.jarvish.databinding.ItemUserBinding
 import com.abhishek.jarvish.db.table.UserDetailTable
+import com.abhishek.jarvish.db.table.UserDetailWithRelations
 
 class UserListAdapter(
     private val context: Context,
-    private val userList: ArrayList<UserDetailTable>
+    private val userList: ArrayList<UserDetailWithRelations>
 ) :
     RecyclerView.Adapter<UserListAdapter.UserListViewHolder>() {
 

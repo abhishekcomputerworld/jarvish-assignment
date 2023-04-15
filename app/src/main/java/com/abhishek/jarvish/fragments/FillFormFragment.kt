@@ -17,13 +17,14 @@ import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModel
+import androidx.fragment.app.activityViewModels
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.Navigation.findNavController
+import androidx.navigation.fragment.findNavController
 import com.abhishek.jarvish.R
 import com.abhishek.jarvish.databinding.FragmentFillFormBinding
-import com.abhishek.jarvish.db.table.Address
-import com.abhishek.jarvish.db.table.Education
-import com.abhishek.jarvish.db.table.MobileNo
+import com.abhishek.jarvish.db.UserDetailViewModel
 import com.abhishek.jarvish.utils.Utility
 import com.abhishek.jarvish.viewholder.FillFormViewModel
 import java.io.IOException
@@ -34,7 +35,7 @@ class FillFormFragment : Fragment() {
     private var _binding: FragmentFillFormBinding? = null
     private val binding get() = _binding!!
     private lateinit var fillFormViewModel: FillFormViewModel
-
+    private val userDetailSharedViewModel: UserDetailViewModel by activityViewModels()
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View? {
@@ -55,6 +56,7 @@ class FillFormFragment : Fragment() {
         binding.executePendingBindings()
 
 
+
     }
 
     override fun onResume() {
@@ -68,9 +70,11 @@ class FillFormFragment : Fragment() {
     }
 
     fun saveData() {
+        userDetailSharedViewModel.insertData(requireContext(),fillFormViewModel.getUserData().value!!)
 //binding.buttonFirst.setOnClickListener {
         //  findNavController().navigate(R.id.action_FirstFragment_to_SecondFragment)
         //  }
+        findNavController().navigate(R.id.action_FirstFragment_to_SecondFragment)
     }
 
     fun loadImageFromGallery() {
@@ -133,10 +137,16 @@ class FillFormFragment : Fragment() {
                     )
                 } catch (e: IOException) {
                     binding.ivUpload.apply {
-                        background = ContextCompat.getDrawable(requireContext(), R.drawable.bg_upload)
-                        setImageDrawable(ContextCompat.getDrawable(requireContext(), R.drawable.ic_upload_icon))
+                        background =
+                            ContextCompat.getDrawable(requireContext(), R.drawable.bg_upload)
+                        setImageDrawable(
+                            ContextCompat.getDrawable(
+                                requireContext(),
+                                R.drawable.ic_upload_icon
+                            )
+                        )
                     }
-                    Utility.showSnackBar(view?.rootView!!,"please select other Image")
+                    Utility.showSnackBar(view?.rootView!!, "please select other Image")
                     e.printStackTrace()
                 }
 

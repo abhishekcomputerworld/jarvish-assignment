@@ -7,8 +7,8 @@ import androidx.room.PrimaryKey
 @Entity(tableName = "education")
 data class Education(
     @PrimaryKey(autoGenerate = true)
-    @ColumnInfo(name = "id")
-    var id: Int?,
+    @ColumnInfo(name = "education_id")
+    var educationId: Int?,
 
     @ColumnInfo(name = "level")
     var level: String?,
@@ -17,11 +17,14 @@ data class Education(
     var stream: String?,
 
     @ColumnInfo(name = "start_year")
-    var start_year: Int?,
+    var startYear: Int?,
 
     @ColumnInfo(name = "end_year")
-    var end_year: Int?,
+    var endYear: Int?,
 
     @ColumnInfo(name = "college_name")
-    var College: String?
+    var college: String?,
+
+    @ColumnInfo(name = "user_id")
+    var userId: Int?
 )

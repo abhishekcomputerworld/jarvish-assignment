@@ -5,18 +5,39 @@ import androidx.room.Database
 import androidx.room.Room
 import androidx.room.Room.databaseBuilder
 import androidx.room.RoomDatabase
+import androidx.room.TypeConverters
 import com.abhishek.jarvish.db.dao.UserDetailDao
+import com.abhishek.jarvish.db.table.Address
+import com.abhishek.jarvish.db.table.Education
+import com.abhishek.jarvish.db.table.MobileNo
 import com.abhishek.jarvish.db.table.UserDetailTable
+import com.abhishek.jarvish.utils.DateConverter
 
-@Database(entities = [UserDetailTable::class], version = 1, exportSchema = false)
+@Database(entities = [UserDetailTable::class, MobileNo::class, Address::class, Education::class], version = 2)
+@TypeConverters(DateConverter::class)
 abstract class AppDatabase : RoomDatabase() {
     abstract fun userDetailDao(): UserDetailDao
 
     companion object {
         @Volatile
         private var INSTANCE: AppDatabase? = null
+        fun getInstance(context: Context): AppDatabase{
+            val tempInstance = INSTANCE
 
-        fun getInstance(context: Context): AppDatabase {
+            if (tempInstance != null) {
+                return tempInstance
+            }
+            synchronized(this) {
+                val instance = Room.databaseBuilder(
+                    context.applicationContext,
+                    AppDatabase::class.java,
+                    "app_database"
+                ).fallbackToDestructiveMigration().build()
+                INSTANCE = instance
+                return instance
+            }
+        }
+        /*fun getInstance2(context: Context): AppDatabase {
             synchronized(this) {
                 var instance = INSTANCE
                 if (instance == null) {
@@ -29,6 +50,6 @@ abstract class AppDatabase : RoomDatabase() {
                 }
                 return instance
             }
-        }
+        }*/
     }
 }

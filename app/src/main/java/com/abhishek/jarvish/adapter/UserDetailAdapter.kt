@@ -1,6 +1,10 @@
 package com.abhishek.jarvish.adapter
 
+import android.app.DatePickerDialog
 import android.content.Context
+import android.text.Editable
+import android.text.InputType
+import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.core.content.ContextCompat
@@ -10,6 +14,8 @@ import com.abhishek.jarvish.databinding.ItemAddMoreBinding
 import com.abhishek.jarvish.databinding.ItemEditFieldBinding
 import com.abhishek.jarvish.db.table.MobileNo
 import com.abhishek.jarvish.utils.Constants
+import java.util.*
+import kotlin.collections.ArrayList
 
 class UserDetailAdapter(
     private val context: Context,
@@ -40,34 +46,73 @@ class UserDetailAdapter(
             if (getItemViewType(position) == Constants.TYPE_EDIT_VIEW) {
                 val userAddressViewHolder: UserDetailViewHolder = holder as UserDetailViewHolder
                 if (position == 0) {
-                    userAddressViewHolder.binding.inputLayoutEdittext.isHintAnimationEnabled=false
-                    userAddressViewHolder.binding.inputLayoutEdittext.hint = "First Name"
-                    userAddressViewHolder.binding.inputEdittext.hint = "Enter you first name"
+                    userAddressViewHolder.binding.textInputLayout.hint = "First Name"
+                    userAddressViewHolder.binding.textInputEdittext.hint = "Enter you first name"
                 } else if (position == 1) {
-                    userAddressViewHolder.binding.inputLayoutEdittext.hint = "Last name"
-                    userAddressViewHolder.binding.inputEdittext.hint = "Enter your last name"
-
+                    userAddressViewHolder.binding.textInputLayout.hint = "Last name"
+                    userAddressViewHolder.binding.textInputEdittext.hint = "Enter your last name"
                 } else if (position == 2) {
-                    userAddressViewHolder. binding.inputLayoutEdittext.hint = "DOB"
-                    userAddressViewHolder.binding.inputEdittext.hint = "Select date of birth"
+                    userAddressViewHolder. binding.textInputLayout.hint = "DOB"
+                    userAddressViewHolder.binding.textInputEdittext.hint = "Select date of birth"
+                    userAddressViewHolder.binding.textInputEdittext.inputType= InputType.TYPE_NULL
                     val drawable = ContextCompat.getDrawable(context, R.drawable.ic_calender)
-                    userAddressViewHolder.binding.inputEdittext.setCompoundDrawablesWithIntrinsicBounds(null, null, drawable, null)
+                    userAddressViewHolder.binding.textInputEdittext.setOnClickListener {
+                        val dateSetListener = DatePickerDialog.OnDateSetListener { view, year, monthOfYear, dayOfMonth ->
+                            // set the selected date to the TextInputEditText
+                            val date = "$dayOfMonth/${monthOfYear + 1}/$year"
+                            userAddressViewHolder.binding.textInputEdittext.setText(date)
+                        }
 
+                        val calendar = Calendar.getInstance()
+                        val year = calendar.get(Calendar.YEAR)
+                        val month = calendar.get(Calendar.MONTH)
+                        val dayOfMonth = calendar.get(Calendar.DAY_OF_MONTH)
+
+                        val datePickerDialog = DatePickerDialog(
+                            context,
+                            dateSetListener,
+                            year,
+                            month,
+                            dayOfMonth)
+
+                        datePickerDialog.show()
+                    }
+
+                    userAddressViewHolder.binding.textInputEdittext.setCompoundDrawablesWithIntrinsicBounds(null, null, drawable, null)
                 } else if (position == 3) {
-                    userAddressViewHolder.binding.inputLayoutEdittext.hint = "Mobile No."
-                    userAddressViewHolder.binding.inputEdittext.hint = "Enter your mobile No."
+                    userAddressViewHolder.binding.textInputLayout.hint = "Mobile No."
+                    userAddressViewHolder.binding.textInputEdittext.hint = "Enter your mobile No."
+                    userAddressViewHolder.binding.textInputEdittext.inputType=InputType.TYPE_CLASS_PHONE
 
                 } else {
-                    userAddressViewHolder.binding.inputLayoutEdittext.hint = "Mobile No."
-                    userAddressViewHolder.binding.inputEdittext.hint = "Enter your mobile No."
+                    userAddressViewHolder.binding.textInputLayout.hint = "Mobile No."
+                    userAddressViewHolder.binding.textInputEdittext.hint = "Enter your mobile No."
                     val drawable = ContextCompat.getDrawable(context, R.drawable.ic_delete)
-                    userAddressViewHolder.binding.inputEdittext.setCompoundDrawablesWithIntrinsicBounds(null, null, drawable, null)
+                    userAddressViewHolder.binding.textInputEdittext.addTextChangedListener(object :
+                        TextWatcher {
+                        override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
+
+                        override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
+
+                        override fun afterTextChanged(s: Editable?) {
+                            if (s.isNullOrEmpty()) {
+                                userAddressViewHolder.binding.textInputEdittext.error = "Phone number is required"
+                            } else if (s.length < 10) {
+                                userAddressViewHolder.binding.textInputEdittext.error = "Phone number must be at least 10 digits"
+                            } else if (s.length > 10) {
+                                userAddressViewHolder.binding.textInputEdittext.error = "Phone number cannot be more than 10 digits"
+                            } else {
+                                userAddressViewHolder.binding.textInputEdittext.error = null
+                            }
+                        }
+                    })
+                    userAddressViewHolder.binding.textInputEdittext.setCompoundDrawablesWithIntrinsicBounds(null, null, drawable, null)
                 }
             }else{
                 val addMoreViewHolder: AddMoreViewHolder = holder as AddMoreViewHolder
                 addMoreViewHolder.binding.addMore = "Add more mobile no."
                 addMoreViewHolder.binding.llAddMore.setOnClickListener {
-                    userMobileList.add(MobileNo(1,""))
+                    userMobileList.add(MobileNo(1,"",0))
                     notifyItemInserted(userMobileList.size + 3)
                 }
 

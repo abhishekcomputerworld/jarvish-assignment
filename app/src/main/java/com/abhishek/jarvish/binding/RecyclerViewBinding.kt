@@ -7,10 +7,7 @@ import com.abhishek.jarvish.adapter.UserAddressAdapter
 import com.abhishek.jarvish.adapter.UserDetailAdapter
 import com.abhishek.jarvish.adapter.UserEducationAdapter
 import com.abhishek.jarvish.adapter.UserListAdapter
-import com.abhishek.jarvish.db.table.Address
-import com.abhishek.jarvish.db.table.Education
-import com.abhishek.jarvish.db.table.MobileNo
-import com.abhishek.jarvish.db.table.UserDetailTable
+import com.abhishek.jarvish.db.table.*
 
 object  RecyclerViewBinding {
 
@@ -50,7 +47,7 @@ object  RecyclerViewBinding {
     @JvmStatic
     @BindingAdapter("Context", "UserList")
     fun setUserListRecyclerView(
-        recyclerView: RecyclerView, context: Context, userList: ArrayList<UserDetailTable>?
+        recyclerView: RecyclerView, context: Context, userList: ArrayList<UserDetailWithRelations>?
     ) {
         if (userList != null) {
             recyclerView.adapter = UserListAdapter(context, userList)
