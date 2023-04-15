@@ -10,6 +10,7 @@ import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.AutoCompleteTextView
 import androidx.core.content.ContextCompat
+import androidx.core.widget.addTextChangedListener
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.RecyclerView.ViewHolder
 import com.abhishek.jarvish.R
@@ -17,10 +18,14 @@ import com.abhishek.jarvish.databinding.ItemAddMoreBinding
 import com.abhishek.jarvish.databinding.ItemEducationBinding
 import com.abhishek.jarvish.db.table.Education
 import com.abhishek.jarvish.utils.Constants
+import com.abhishek.jarvish.viewholder.FillFormViewModel
+import java.util.*
+import kotlin.collections.ArrayList
 
 
 class UserEducationAdapter(
     private val context: Context,
+    private val fillFormViewModel: FillFormViewModel,
     private val userEducationList: ArrayList<Education>
 ) :
     RecyclerView.Adapter<RecyclerView.ViewHolder>() {
@@ -110,11 +115,29 @@ class UserEducationAdapter(
                 userEducationViewHolder.binding.etCollege.textInputLayout.hint = "Institute/Collage name"
                 userEducationViewHolder.binding.etCollege.textInputEdittext.hint = "Enter collage name"
 
+
+                userEducationViewHolder.binding.etLevel.textInputEdittext.addTextChangedListener {s ->
+                    fillFormViewModel.educationList.value?.get(position)?.level = s.toString()
+                }
+                userEducationViewHolder.binding.etStream.textInputEdittext.addTextChangedListener { s ->
+                    fillFormViewModel.educationList.value?.get(position)?.stream = s.toString()
+                }
+                userEducationViewHolder.binding.etStartYear.textInputEdittext.addTextChangedListener {s ->
+                    fillFormViewModel.educationList.value?.get(position)?.startYear = s.toString().toInt()
+                }
+                userEducationViewHolder.binding.etEndYear.textInputEdittext.addTextChangedListener {s ->
+                    fillFormViewModel.educationList.value?.get(position)?.endYear = s.toString().toInt()
+                }
+                userEducationViewHolder.binding.etCollege.textInputEdittext.addTextChangedListener {s ->
+                    fillFormViewModel.educationList.value?.get(position)?.college = s.toString()
+                }
+
+
             } else{
                 val addMoreViewHolder: UserEducationAdapter.AddMoreViewHolder = holder as UserEducationAdapter.AddMoreViewHolder
                 addMoreViewHolder.binding.addMore = "Add more education"
                 addMoreViewHolder.binding.llAddMore.setOnClickListener {
-                    userEducationList.add(Education(position, "", "CSE", 2022, 2023, "Gl Bajaj",0))
+                    userEducationList.add(Education(UUID.randomUUID().toString(), "", "CSE", 2022, 2023, "Gl Bajaj",UUID.randomUUID().toString()))
                     notifyItemInserted(userEducationList.size )
                 }
             }

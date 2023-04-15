@@ -1,5 +1,6 @@
 package com.abhishek.jarvish.db.table
 
+import androidx.annotation.NonNull
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
@@ -11,9 +12,9 @@ import kotlin.collections.ArrayList
 @Entity(tableName = "user_detail_table")
 data class UserDetailTable(
 
-    @PrimaryKey(autoGenerate = true)
+    @PrimaryKey//(autoGenerate = true)
     @ColumnInfo(name = "user_id")
-    var userId: Int?,
+    var userId: String,
 
     @ColumnInfo(name = "profile_image")
     var profileImage: String?,

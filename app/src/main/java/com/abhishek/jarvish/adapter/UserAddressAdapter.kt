@@ -2,20 +2,26 @@ package com.abhishek.jarvish.adapter
 
 import android.annotation.SuppressLint
 import android.content.Context
+import android.text.Editable
+import android.text.InputType
+import android.text.TextWatcher
 import android.view.LayoutInflater
-import android.view.MotionEvent
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.content.ContextCompat
+import androidx.core.widget.addTextChangedListener
 import androidx.recyclerview.widget.RecyclerView
 import com.abhishek.jarvish.R
 import com.abhishek.jarvish.databinding.ItemAddMoreBinding
 import com.abhishek.jarvish.databinding.ItemAddressBinding
 import com.abhishek.jarvish.db.table.Address
 import com.abhishek.jarvish.utils.Constants
+import com.abhishek.jarvish.viewholder.FillFormViewModel
+import java.util.*
 
 class UserAddressAdapter(
     private val context: Context,
+    private val fillFormViewModel: FillFormViewModel,
     private val userAddressList: ArrayList<Address>
 ) :
     RecyclerView.Adapter<RecyclerView.ViewHolder>() {
@@ -69,17 +75,34 @@ class UserAddressAdapter(
                 userAddressViewHolder.binding.etArea.textInputEdittext.hint = "Enter your address"
                 userAddressViewHolder.binding.etPinCode.textInputLayout.hint = "Pin code"
                 userAddressViewHolder.binding.etPinCode.textInputEdittext.hint = "Enter your pin code"
+                userAddressViewHolder.binding.etPinCode.textInputEdittext.inputType = InputType.TYPE_CLASS_NUMBER
                 userAddressViewHolder.binding.etCity.textInputLayout.hint = "Town/City"
                 userAddressViewHolder.binding.etCity.textInputEdittext.hint = "Enter your town"
                 userAddressViewHolder.binding.etState.textInputLayout.hint = "State"
                 userAddressViewHolder.binding.etState.textInputEdittext.hint = "Enter your state"
+
+                userAddressViewHolder.binding.etHouseNo.textInputEdittext.addTextChangedListener {s ->
+                    fillFormViewModel.addressList.value?.get(position)?.houseNo = s.toString()
+                }
+                userAddressViewHolder.binding.etArea.textInputEdittext.addTextChangedListener { s ->
+                    fillFormViewModel.addressList.value?.get(position)?.area = s.toString()
+                }
+                userAddressViewHolder.binding.etPinCode.textInputEdittext.addTextChangedListener {s ->
+                    fillFormViewModel.addressList.value?.get(position)?.pinCode = s.toString().toInt()
+                }
+                userAddressViewHolder.binding.etCity.textInputEdittext.addTextChangedListener {s ->
+                    fillFormViewModel.addressList.value?.get(position)?.city = s.toString()
+                }
+                userAddressViewHolder.binding.etState.textInputEdittext.addTextChangedListener {s ->
+                    fillFormViewModel.addressList.value?.get(position)?.state = s.toString()
+                }
 
             } else {
                 val addMoreViewHolder: UserAddressAdapter.AddMoreViewHolder =
                     holder as UserAddressAdapter.AddMoreViewHolder
                 addMoreViewHolder.binding.addMore = "Add more address"
                 addMoreViewHolder.binding.llAddMore.setOnClickListener {
-                    userAddressList.add(Address(position, 0, "", 201305, "noida", "Up",0))
+                    userAddressList.add(Address(UUID.randomUUID().toString(), "", "", 201305, "noida", "Up",UUID.randomUUID().toString()))
                     notifyItemInserted(userAddressList.size)
                 }
             }

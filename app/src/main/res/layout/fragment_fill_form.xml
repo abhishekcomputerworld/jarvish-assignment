@@ -140,6 +140,7 @@
                         tools:itemCount="5"
                         tools:listitem="@layout/item_edit_field"
                         app:Context="@{context}"
+                        app:ViewModel="@{ViewModel}"
                         app:UserMobileList="@{ViewModel.mobileNoList}"
                         />
 
@@ -163,6 +164,7 @@
                         tools:itemCount="1"
                         tools:listitem="@layout/item_address"
                         app:Context="@{context}"
+                        app:ViewModel="@{ViewModel}"
                         app:UserAddressList="@{ViewModel.addressList}"/>
 
 
@@ -186,6 +188,7 @@
                         tools:itemCount="1"
                         tools:listitem="@layout/item_education"
                         app:Context="@{context}"
+                        app:ViewModel="@{ViewModel}"
                         app:UserEducationList="@{ViewModel.educationList}"/>
 
 

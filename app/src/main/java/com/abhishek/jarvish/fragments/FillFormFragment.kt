@@ -25,9 +25,13 @@ import androidx.navigation.fragment.findNavController
 import com.abhishek.jarvish.R
 import com.abhishek.jarvish.databinding.FragmentFillFormBinding
 import com.abhishek.jarvish.db.UserDetailViewModel
+import com.abhishek.jarvish.utils.ImageBitmapString
 import com.abhishek.jarvish.utils.Utility
 import com.abhishek.jarvish.viewholder.FillFormViewModel
+import java.io.File
+import java.io.FileOutputStream
 import java.io.IOException
+import java.util.*
 
 
 class FillFormFragment : Fragment() {
@@ -135,6 +139,8 @@ class FillFormFragment : Fragment() {
                     binding.ivUpload.setImageBitmap(
                         selectedImageBitmap
                     )
+                   // fillFormViewModel.user.value?.profileImage = ImageBitmapString.bitMapToString(selectedImageBitmap)
+                    fillFormViewModel.user.value?.profileImage = saveImageToFileSystem(selectedImageBitmap)
                 } catch (e: IOException) {
                     binding.ivUpload.apply {
                         background =
@@ -154,5 +160,24 @@ class FillFormFragment : Fragment() {
         }
     }
 
+    private fun saveImageToFileSystem(bitmap: Bitmap): String {
+        // Get the directory for storing images
+        val directory = File(context?.getExternalFilesDir(null), "images")
+        if (!directory.exists()) {
+            directory.mkdirs()
+        }
 
+        // Generate a unique filename for the image
+        val filename = "${UUID.randomUUID()}.jpg"
+
+        // Save the image to the filesystem
+        val file = File(directory, filename)
+        val outputStream = FileOutputStream(file)
+        bitmap.compress(Bitmap.CompressFormat.JPEG, 100, outputStream)
+        outputStream.flush()
+        outputStream.close()
+
+        // Return the path to the image file
+        return file.absolutePath
+    }
 }

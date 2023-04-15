@@ -6,13 +6,13 @@ import androidx.room.PrimaryKey
 
 @Entity(tableName = "mobileNo")
 data class MobileNo(
-    @PrimaryKey(autoGenerate = true)
+    @PrimaryKey//(autoGenerate = true)
     @ColumnInfo(name = "mobile_id")
-    var mobileId: Int?,
+    var mobileId: String,
 
     @ColumnInfo(name = "mobile_no")
     var mobileNo: String?,
 
     @ColumnInfo(name = "user_id")
-    var userId: Int?
+    var userId: String?
 )

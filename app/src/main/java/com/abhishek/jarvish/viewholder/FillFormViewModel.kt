@@ -19,10 +19,10 @@ class FillFormViewModel : ViewModel() {
 
 
     fun addMobileData() {
-        user.value=UserDetailTable(1,"","","", Date())
-        addressList.value = arrayListOf(Address(0, 0, "", 201305, "noida", "Up",0))
-        educationList.value = arrayListOf(Education(0, "", "CSE", 2022, 2023, "Gl Bajaj",0))
-        mobileNoList.value = arrayListOf(MobileNo(0, "8178279133",0))
+        user.value=UserDetailTable( UUID.randomUUID().toString(),"","","", Date())
+        addressList.value = arrayListOf(Address(UUID.randomUUID().toString(), "", "", 201305, "noida", "Up",UUID.randomUUID().toString()))
+        educationList.value = arrayListOf(Education(UUID.randomUUID().toString(), "", "CSE", 2022, 2023, "Gl Bajaj",UUID.randomUUID().toString()))
+        mobileNoList.value = arrayListOf(MobileNo(UUID.randomUUID().toString(), "8178279133",UUID.randomUUID().toString()))
         isSubmitEnable.value = true
     }
 

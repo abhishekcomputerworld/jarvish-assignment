@@ -6,12 +6,12 @@ import androidx.room.PrimaryKey
 
 @Entity(tableName = "address")
 data class Address(
-    @PrimaryKey(autoGenerate = true)
+    @PrimaryKey//(autoGenerate = true)
     @ColumnInfo(name = "address_id")
-    var addressId: Int?,
+    var addressId: String,
 
     @ColumnInfo(name = "house_no")
-    var houseNo: Int?,
+    var houseNo: String?,
 
     @ColumnInfo(name = "area")
     var area: String?,
@@ -26,5 +26,5 @@ data class Address(
     var state: String?,
 
     @ColumnInfo(name = "user_id")
-    var userId: Int?
+    var userId: String?
 )

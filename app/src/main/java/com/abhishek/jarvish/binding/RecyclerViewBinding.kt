@@ -8,39 +8,40 @@ import com.abhishek.jarvish.adapter.UserDetailAdapter
 import com.abhishek.jarvish.adapter.UserEducationAdapter
 import com.abhishek.jarvish.adapter.UserListAdapter
 import com.abhishek.jarvish.db.table.*
+import com.abhishek.jarvish.viewholder.FillFormViewModel
 
 object  RecyclerViewBinding {
 
     @JvmStatic
-    @BindingAdapter("Context", "UserMobileList")
+    @BindingAdapter("Context", "ViewModel", "UserMobileList")
     fun setUserDetailRecyclerView(
-        recyclerView: RecyclerView, context: Context, userMobileList: ArrayList<MobileNo>?
+        recyclerView: RecyclerView, context: Context,fillFormViewModel: FillFormViewModel, userMobileList: ArrayList<MobileNo>?
     ) {
         if (userMobileList != null) {
-            recyclerView.adapter = UserDetailAdapter(context, userMobileList)
+            recyclerView.adapter = UserDetailAdapter(context,fillFormViewModel, userMobileList)
         }
     }
 
 
 
     @JvmStatic
-    @BindingAdapter("Context", "UserAddressList")
+    @BindingAdapter("Context","ViewModel", "UserAddressList")
     fun setUserAddressRecyclerView(
-        recyclerView: RecyclerView, context: Context, userAddressList: ArrayList<Address>?
+        recyclerView: RecyclerView, context: Context, fillFormViewModel: FillFormViewModel, userAddressList: ArrayList<Address>?
     ) {
         if (userAddressList != null) {
-            recyclerView.adapter = UserAddressAdapter(context, userAddressList)
+            recyclerView.adapter = UserAddressAdapter(context,fillFormViewModel, userAddressList)
         }
     }
 
 
     @JvmStatic
-    @BindingAdapter("Context", "UserEducationList")
+    @BindingAdapter("Context","ViewModel",  "UserEducationList")
     fun setUserEducationRecyclerView(
-        recyclerView: RecyclerView, context: Context, userEducationList: ArrayList<Education>?
+        recyclerView: RecyclerView, context: Context,fillFormViewModel: FillFormViewModel, userEducationList: ArrayList<Education>?
     ) {
         if (userEducationList != null) {
-            recyclerView.adapter = UserEducationAdapter(context, userEducationList)
+            recyclerView.adapter = UserEducationAdapter(context, fillFormViewModel,userEducationList)
         }
     }
 

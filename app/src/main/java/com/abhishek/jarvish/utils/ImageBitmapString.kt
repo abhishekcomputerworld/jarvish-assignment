@@ -6,7 +6,7 @@ import android.util.Base64
 import androidx.room.TypeConverter
 import java.io.ByteArrayOutputStream
 
-class ImageBitmapString {
+object ImageBitmapString {
 
     @TypeConverter
     fun bitMapToString(bitmap: Bitmap): String? {
@@ -27,4 +27,5 @@ class ImageBitmapString {
             null
         }
     }
+
 }

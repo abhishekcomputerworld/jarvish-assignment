@@ -6,9 +6,9 @@ import androidx.room.PrimaryKey
 
 @Entity(tableName = "education")
 data class Education(
-    @PrimaryKey(autoGenerate = true)
+    @PrimaryKey  //(autoGenerate = true)
     @ColumnInfo(name = "education_id")
-    var educationId: Int?,
+    var educationId: String,
 
     @ColumnInfo(name = "level")
     var level: String?,
@@ -26,5 +26,5 @@ data class Education(
     var college: String?,
 
     @ColumnInfo(name = "user_id")
-    var userId: Int?
+    var userId: String?
 )

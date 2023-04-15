@@ -14,11 +14,13 @@ import com.abhishek.jarvish.databinding.ItemAddMoreBinding
 import com.abhishek.jarvish.databinding.ItemEditFieldBinding
 import com.abhishek.jarvish.db.table.MobileNo
 import com.abhishek.jarvish.utils.Constants
+import com.abhishek.jarvish.viewholder.FillFormViewModel
 import java.util.*
 import kotlin.collections.ArrayList
 
 class UserDetailAdapter(
     private val context: Context,
+    private val fillFormViewModel: FillFormViewModel,
     private val userMobileList: ArrayList<MobileNo>
 ) :
     RecyclerView.Adapter<RecyclerView.ViewHolder>() {
@@ -48,9 +50,41 @@ class UserDetailAdapter(
                 if (position == 0) {
                     userAddressViewHolder.binding.textInputLayout.hint = "First Name"
                     userAddressViewHolder.binding.textInputEdittext.hint = "Enter you first name"
+                    userAddressViewHolder.binding.textInputEdittext.addTextChangedListener(object : TextWatcher {
+                        override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
+                            // do nothing
+                        }
+
+                        override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+                            // update the TextView with the number of characters in the input text
+
+                        }
+
+                        override fun afterTextChanged(s: Editable?) {
+                            // do nothing
+                            fillFormViewModel.user.value?.firstName = s.toString()
+
+                        }
+                    })
                 } else if (position == 1) {
                     userAddressViewHolder.binding.textInputLayout.hint = "Last name"
                     userAddressViewHolder.binding.textInputEdittext.hint = "Enter your last name"
+                    userAddressViewHolder.binding.textInputEdittext.addTextChangedListener(object : TextWatcher {
+                        override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
+                            // do nothing
+                        }
+
+                        override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+                            // update the TextView with the number of characters in the input text
+
+                        }
+
+                        override fun afterTextChanged(s: Editable?) {
+                            // do nothing
+                            fillFormViewModel.user.value?.lastName = s.toString()
+
+                        }
+                    })
                 } else if (position == 2) {
                     userAddressViewHolder. binding.textInputLayout.hint = "DOB"
                     userAddressViewHolder.binding.textInputEdittext.hint = "Select date of birth"
@@ -58,23 +92,16 @@ class UserDetailAdapter(
                     val drawable = ContextCompat.getDrawable(context, R.drawable.ic_calender)
                     userAddressViewHolder.binding.textInputEdittext.setOnClickListener {
                         val dateSetListener = DatePickerDialog.OnDateSetListener { view, year, monthOfYear, dayOfMonth ->
-                            // set the selected date to the TextInputEditText
                             val date = "$dayOfMonth/${monthOfYear + 1}/$year"
                             userAddressViewHolder.binding.textInputEdittext.setText(date)
+                            fillFormViewModel.user.value?.firstName = date.toString()
                         }
 
                         val calendar = Calendar.getInstance()
                         val year = calendar.get(Calendar.YEAR)
                         val month = calendar.get(Calendar.MONTH)
                         val dayOfMonth = calendar.get(Calendar.DAY_OF_MONTH)
-
-                        val datePickerDialog = DatePickerDialog(
-                            context,
-                            dateSetListener,
-                            year,
-                            month,
-                            dayOfMonth)
-
+                        val datePickerDialog = DatePickerDialog(context, dateSetListener, year, month, dayOfMonth)
                         datePickerDialog.show()
                     }
 
@@ -83,18 +110,14 @@ class UserDetailAdapter(
                     userAddressViewHolder.binding.textInputLayout.hint = "Mobile No."
                     userAddressViewHolder.binding.textInputEdittext.hint = "Enter your mobile No."
                     userAddressViewHolder.binding.textInputEdittext.inputType=InputType.TYPE_CLASS_PHONE
-
-                } else {
-                    userAddressViewHolder.binding.textInputLayout.hint = "Mobile No."
-                    userAddressViewHolder.binding.textInputEdittext.hint = "Enter your mobile No."
-                    val drawable = ContextCompat.getDrawable(context, R.drawable.ic_delete)
-                    userAddressViewHolder.binding.textInputEdittext.addTextChangedListener(object :
-                        TextWatcher {
+                    userAddressViewHolder.binding.textInputEdittext.addTextChangedListener(object : TextWatcher {
                         override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
 
                         override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
 
                         override fun afterTextChanged(s: Editable?) {
+                            //  fillFormViewModel.mobileNoList.value?.set(0, s.toString())
+                            fillFormViewModel.mobileNoList.value?.get(position-3)?.mobileNo = s.toString()
                             if (s.isNullOrEmpty()) {
                                 userAddressViewHolder.binding.textInputEdittext.error = "Phone number is required"
                             } else if (s.length < 10) {
@@ -106,13 +129,39 @@ class UserDetailAdapter(
                             }
                         }
                     })
+
+                } else {
+                    userAddressViewHolder.binding.textInputLayout.hint = "Mobile No."
+                    userAddressViewHolder.binding.textInputEdittext.hint = "Enter your mobile No."
+                    userAddressViewHolder.binding.textInputEdittext.inputType=InputType.TYPE_CLASS_PHONE
+                    val drawable = ContextCompat.getDrawable(context, R.drawable.ic_delete)
                     userAddressViewHolder.binding.textInputEdittext.setCompoundDrawablesWithIntrinsicBounds(null, null, drawable, null)
+                    userAddressViewHolder.binding.textInputEdittext.addTextChangedListener(object : TextWatcher {
+                        override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
+
+                        override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
+
+                        override fun afterTextChanged(s: Editable?) {
+                            fillFormViewModel.mobileNoList.value?.get(0)?.mobileNo = s.toString()
+                            if (s.isNullOrEmpty()) {
+                                userAddressViewHolder.binding.textInputEdittext.error = "Phone number is required"
+                            } else if (s.length < 10) {
+                                userAddressViewHolder.binding.textInputEdittext.error = "Phone number must be at least 10 digits"
+                            } else if (s.length > 10) {
+                                userAddressViewHolder.binding.textInputEdittext.error = "Phone number cannot be more than 10 digits"
+                            } else {
+                                userAddressViewHolder.binding.textInputEdittext.error = null
+                            }
+                        }
+                    })
                 }
+
+
             }else{
                 val addMoreViewHolder: AddMoreViewHolder = holder as AddMoreViewHolder
                 addMoreViewHolder.binding.addMore = "Add more mobile no."
                 addMoreViewHolder.binding.llAddMore.setOnClickListener {
-                    userMobileList.add(MobileNo(1,"",0))
+                    userMobileList.add(MobileNo(UUID.randomUUID().toString(),"",UUID.randomUUID().toString()))
                     notifyItemInserted(userMobileList.size + 3)
                 }
 
