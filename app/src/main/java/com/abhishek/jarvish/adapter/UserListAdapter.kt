@@ -27,8 +27,10 @@ class UserListAdapter(
 
     override fun onBindViewHolder(holder: UserListViewHolder, position: Int) {
         with(holder) {
+            binding.user = userList[position]
+          /*  binding.ivEdit.setOnClickListener {
 
-
+            }*/
         }
     }
 

@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:paddingTop="@dimen/_12sdp"
+    android:paddingBottom="@dimen/_12sdp"
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/tv_education"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/_12sdp"
+        android:paddingEnd="@dimen/_4sdp"
+        android:fontFamily="@font/lato_bold"
+        android:text="Education"
+        android:textColor="#0D0D0D"
+        android:textSize="@dimen/_14sdp" />
+
+    <include
+        android:id="@+id/et_level"
+        layout="@layout/item_edit_field"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/_6sdp" />
+
+    <include
+        android:id="@+id/et_stream"
+        layout="@layout/item_edit_field"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/_6sdp" />
+
+    <include
+        android:id="@+id/et_start_year"
+        layout="@layout/item_edit_field"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/_6sdp" />
+
+    <include
+        android:id="@+id/et_end_year"
+        layout="@layout/item_edit_field"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/_6sdp" />
+
+    <include
+        android:id="@+id/et_college"
+        layout="@layout/item_edit_field"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/_6sdp" />
+
+</LinearLayout>

@@ -27,7 +27,8 @@ class UserListFragment : Fragment() {
     ): View? {
 
         _binding = DataBindingUtil.inflate(layoutInflater, R.layout.fragment_user_list, container, false)
-       // _binding = FragmentUserListBinding.inflate(inflater, container, false)
+        binding.fragment = this
+// _binding = FragmentUserListBinding.inflate(inflater, container, false)
         return binding.root
 
     }

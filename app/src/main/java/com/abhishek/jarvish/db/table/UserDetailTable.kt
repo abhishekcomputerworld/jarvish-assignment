@@ -13,6 +13,9 @@ data class UserDetailTable(
     @ColumnInfo(name = "user_id")
     var user_id: Int?,
 
+    @ColumnInfo(name = "profile_image")
+    var profileImage: String?,
+
     @ColumnInfo(name = "first_name")
     var firstName: String?,
 
