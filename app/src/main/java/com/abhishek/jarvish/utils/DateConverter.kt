@@ -1,7 +1,7 @@
 package com.abhishek.jarvish.utils
 
 import androidx.room.TypeConverter
-import java.util.Date
+import java.util.*
 
 class DateConverter {
 

@@ -6,7 +6,6 @@ import android.content.Intent
 import android.content.pm.PackageManager
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
-import android.net.Uri
 import android.os.Bundle
 import android.provider.MediaStore
 import android.view.LayoutInflater
@@ -19,9 +18,7 @@ import androidx.core.content.ContextCompat
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
-import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
-import androidx.navigation.Navigation.findNavController
 import androidx.navigation.fragment.findNavController
 import com.abhishek.jarvish.R
 import com.abhishek.jarvish.databinding.FragmentFillFormBinding
@@ -30,7 +27,6 @@ import com.abhishek.jarvish.db.table.Address
 import com.abhishek.jarvish.db.table.Education
 import com.abhishek.jarvish.db.table.MobileNo
 import com.abhishek.jarvish.db.table.UserDetailWithRelations
-import com.abhishek.jarvish.utils.ImageBitmapString
 import com.abhishek.jarvish.utils.Utility
 import com.abhishek.jarvish.viewholder.FillFormViewModel
 import java.io.File
@@ -61,13 +57,13 @@ class FillFormFragment : Fragment() {
         binding.viewModel = this.fillFormViewModel
         binding.fragment = this
         if (arguments != null) {
-            var user=arguments?.getParcelable<UserDetailWithRelations>("userData")
-            fillFormViewModel.user.value =user?.userDetail
+            var user = arguments?.getParcelable<UserDetailWithRelations>("userData")
+            fillFormViewModel.user.value = user?.userDetail
             fillFormViewModel.mobileNoList.value = user?.mobileNumbers as ArrayList<MobileNo>?
             fillFormViewModel.addressList.value = user?.addresses as ArrayList<Address>?
             fillFormViewModel.educationList.value = user?.educations as ArrayList<Education>?
-            fillFormViewModel.userDetail.value =user
-            if(!user?.userDetail?.profileImage.isNullOrEmpty()) {
+            fillFormViewModel.userDetail.value = user
+            if (!user?.userDetail?.profileImage.isNullOrEmpty()) {
                 val bitmap = BitmapFactory.decodeFile(user?.userDetail?.profileImage)
                 binding.ivUpload.setImageBitmap(bitmap)
             }
@@ -78,13 +74,8 @@ class FillFormFragment : Fragment() {
         binding.executePendingBindings()
 
 
-
     }
 
-    override fun onResume() {
-        super.onResume()
-        //fillFormViewModel.addMobileData()
-    }
 
     override fun onDestroyView() {
         super.onDestroyView()
@@ -92,11 +83,17 @@ class FillFormFragment : Fragment() {
     }
 
     fun saveData() {
-        if(arguments!=null){
-            userDetailSharedViewModel.updateData(requireContext(),fillFormViewModel.getUserData().value?.userDetail?.userId,fillFormViewModel.getUserData().value!!)
-        }
-        else{
-            userDetailSharedViewModel.insertData(requireContext(),fillFormViewModel.getUserData().value!!)
+        if (arguments != null) {
+            userDetailSharedViewModel.updateData(
+                requireContext(),
+                fillFormViewModel.getUserData().value?.userDetail?.userId,
+                fillFormViewModel.getUserData().value!!
+            )
+        } else {
+            userDetailSharedViewModel.insertData(
+                requireContext(),
+                fillFormViewModel.getUserData().value!!
+            )
         }
         findNavController().navigate(R.id.action_FirstFragment_to_SecondFragment)
     }
@@ -119,7 +116,7 @@ class FillFormFragment : Fragment() {
         takeGalleryForResult.launch(i)
     }
 
-   private var takeGalleryForResult = registerForActivityResult<Intent, ActivityResult>(
+    private var takeGalleryForResult = registerForActivityResult<Intent, ActivityResult>(
         ActivityResultContracts.StartActivityForResult()
     ) { result: ActivityResult ->
         if (result.resultCode == Activity.RESULT_OK) {
@@ -134,8 +131,9 @@ class FillFormFragment : Fragment() {
                     binding.ivUpload.setImageBitmap(
                         selectedImageBitmap
                     )
-                   // fillFormViewModel.user.value?.profileImage = ImageBitmapString.bitMapToString(selectedImageBitmap)
-                    fillFormViewModel.user.value?.profileImage = saveImageToFileSystem(selectedImageBitmap)
+                    // fillFormViewModel.user.value?.profileImage = ImageBitmapString.bitMapToString(selectedImageBitmap)
+                    fillFormViewModel.user.value?.profileImage =
+                        saveImageToFileSystem(selectedImageBitmap)
                 } catch (e: IOException) {
                     binding.ivUpload.apply {
                         background =
@@ -174,5 +172,14 @@ class FillFormFragment : Fragment() {
 
         // Return the path to the image file
         return file.absolutePath
+    }
+
+
+    fun closeActivity() {
+        if (arguments == null) {
+            requireActivity().finish()
+        } else {
+            findNavController().navigate(R.id.action_FirstFragment_to_SecondFragment)
+        }
     }
 }

@@ -19,8 +19,6 @@ import com.abhishek.jarvish.databinding.ItemEditFieldBinding
 import com.abhishek.jarvish.db.table.MobileNo
 import com.abhishek.jarvish.utils.Constants
 import com.abhishek.jarvish.viewholder.FillFormViewModel
-import java.text.ParseException
-import java.text.SimpleDateFormat
 import java.util.*
 
 class UserDetailAdapter(
@@ -93,9 +91,6 @@ class UserDetailAdapter(
                         datePickerDialog.show()
                     }
                     if((fillFormViewModel.user.value?.dob?.time?: 0) > 0){
-                      /*  val date =fillFormViewModel.user.value?.dob
-                        val dateFormat = SimpleDateFormat("dd/MM/yyyy",Locale.US)
-                        val formattedDate: String = dateFormat.format(date)*/
                         userAddressViewHolder.binding.textInputEdittext.setText(
                            DateFormat.format(
                                 "dd/MM/yyyy",

@@ -1,12 +1,12 @@
 package com.abhishek.jarvish.fragments
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.widget.SearchView
 import androidx.databinding.DataBindingUtil
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
@@ -15,15 +15,13 @@ import com.abhishek.jarvish.R
 import com.abhishek.jarvish.adapter.UserListAdapter
 import com.abhishek.jarvish.databinding.FragmentUserListBinding
 import com.abhishek.jarvish.db.UserDetailViewModel
-import com.abhishek.jarvish.db.table.UserDetailTable
 import com.abhishek.jarvish.db.table.UserDetailWithRelations
-import com.abhishek.jarvish.viewholder.FillFormViewModel
 import com.abhishek.jarvish.viewholder.UserListViewModel
 
 
 class UserListFragment : Fragment(), UserListAdapter.UserEditClick {
 
-    private lateinit var  userDetailList: ArrayList<UserDetailWithRelations>
+    private lateinit var userDetailList: ArrayList<UserDetailWithRelations>
     private var _binding: FragmentUserListBinding? = null
     private val binding get() = _binding!!
 
@@ -36,7 +34,8 @@ class UserListFragment : Fragment(), UserListAdapter.UserEditClick {
         savedInstanceState: Bundle?
     ): View? {
 
-        _binding = DataBindingUtil.inflate(layoutInflater, R.layout.fragment_user_list, container, false)
+        _binding =
+            DataBindingUtil.inflate(layoutInflater, R.layout.fragment_user_list, container, false)
         binding.fragment = this
         return binding.root
 
@@ -54,7 +53,7 @@ class UserListFragment : Fragment(), UserListAdapter.UserEditClick {
         userDetailSharedViewModel.getUserList(requireContext())
             ?.observe(requireActivity(), Observer {
                 if (isAdded && context != null && it.isNotEmpty()) {
-                  //  userDetailList = it.sortedBy { it.userDetail.firstName } as ArrayList<UserDetailWithRelations>
+                    //  userDetailList = it.sortedBy { it.userDetail.firstName } as ArrayList<UserDetailWithRelations>
                     userDetailList = it.reversed() as ArrayList<UserDetailWithRelations>
                     userListViewModel.userList.value = userDetailList
                 }
@@ -63,7 +62,8 @@ class UserListFragment : Fragment(), UserListAdapter.UserEditClick {
 
     private fun setUpListener() {
         // Set the OnQueryTextListener to filter the data when user input changes
-        binding.customToolbar.searchBar.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
+        binding.customToolbar.searchBar.setOnQueryTextListener(object :
+            SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(query: String?): Boolean {
                 return false
             }
@@ -94,8 +94,13 @@ class UserListFragment : Fragment(), UserListAdapter.UserEditClick {
 
     override fun onEditClick(userData: UserDetailWithRelations?) {
         val bundle = Bundle().apply {
-            putParcelable("userData", userData) // "user" is the key used to retrieve the object in the FirstFragment
+            putParcelable(
+                "userData",
+                userData
+            ) // "user" is the key used to retrieve the object in the FirstFragment
         }
         findNavController().navigate(R.id.action_SecondFragment_to_FirstFragment, bundle)
     }
+
+
 }

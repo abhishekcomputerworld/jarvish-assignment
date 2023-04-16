@@ -9,7 +9,7 @@ import kotlinx.parcelize.Parcelize
 @Parcelize
 @Entity(tableName = "mobileNo")
 data class MobileNo(
-    @PrimaryKey//(autoGenerate = true)
+    @PrimaryKey
     @ColumnInfo(name = "mobile_id")
     var mobileId: String,
 

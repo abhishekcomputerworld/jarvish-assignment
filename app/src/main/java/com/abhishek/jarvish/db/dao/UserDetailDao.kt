@@ -19,11 +19,24 @@ interface UserDetailDao {
     suspend fun insertEducation(education: Education)
 
     @Transaction
-    suspend fun insertUserDetailWithRelations(userDetail: UserDetailTable, mobileNumbers: List<MobileNo>, addresses: List<Address>, educations: List<Education>) {
+    suspend fun insertUserDetailWithRelations(
+        userDetail: UserDetailTable,
+        mobileNumbers: List<MobileNo>,
+        addresses: List<Address>,
+        educations: List<Education>
+    ) {
         insertUserDetail(userDetail)
-        mobileNumbers.forEach { mobileNo -> insertMobileNo(mobileNo.apply { userId = userDetail.userId }) }
+        mobileNumbers.forEach { mobileNo ->
+            insertMobileNo(mobileNo.apply {
+                userId = userDetail.userId
+            })
+        }
         addresses.forEach { address -> insertAddress(address.apply { userId = userDetail.userId }) }
-        educations.forEach { education -> insertEducation(education.apply { userId = userDetail.userId }) }
+        educations.forEach { education ->
+            insertEducation(education.apply {
+                userId = userDetail.userId
+            })
+        }
     }
 
     // Retrieval methods
@@ -50,11 +63,24 @@ interface UserDetailDao {
 
     // Update method
     @Transaction
-    suspend fun updateUserDetailWithRelations(userDetail: UserDetailTable, mobileNumbers: List<MobileNo>, addresses: List<Address>, educations: List<Education>) {
+    suspend fun updateUserDetailWithRelations(
+        userDetail: UserDetailTable,
+        mobileNumbers: List<MobileNo>,
+        addresses: List<Address>,
+        educations: List<Education>
+    ) {
         insertUserDetail(userDetail)
-        mobileNumbers.forEach { mobileNo -> insertMobileNo(mobileNo.apply { userId = userDetail.userId }) }
+        mobileNumbers.forEach { mobileNo ->
+            insertMobileNo(mobileNo.apply {
+                userId = userDetail.userId
+            })
+        }
         addresses.forEach { address -> insertAddress(address.apply { userId = userDetail.userId }) }
-        educations.forEach { education -> insertEducation(education.apply { userId = userDetail.userId }) }
+        educations.forEach { education ->
+            insertEducation(education.apply {
+                userId = userDetail.userId
+            })
+        }
     }
 
 }

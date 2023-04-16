@@ -14,7 +14,7 @@ import kotlin.collections.ArrayList
 @Entity(tableName = "user_detail_table")
 data class UserDetailTable(
 
-    @PrimaryKey//(autoGenerate = true)
+    @PrimaryKey
     @ColumnInfo(name = "user_id")
     var userId: String,
 

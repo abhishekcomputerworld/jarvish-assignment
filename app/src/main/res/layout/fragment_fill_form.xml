@@ -12,6 +12,7 @@
             type="com.abhishek.jarvish.viewholder.FillFormViewModel" />
 
         <import type="android.view.View" />
+
         <import type="android.content.Context" />
     </data>
 
@@ -36,8 +37,10 @@
             app:layout_constraintTop_toTopOf="parent">
 
             <ImageView
+                android:id="@+id/iv_next"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:onClick="@{() -> fragment.closeActivity()}"
                 android:src="@drawable/ic_next" />
 
             <TextView
@@ -92,8 +95,8 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_margin="@dimen/_12sdp"
-                        android:onClick="@{() ->fragment.loadImageFromGallery()}"
                         android:gravity="center"
+                        android:onClick="@{() ->fragment.loadImageFromGallery()}"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
@@ -136,13 +139,12 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_below="@+id/tv_personal_detail"
+                        app:Context="@{context}"
+                        app:UserMobileList="@{ViewModel.mobileNoList}"
+                        app:ViewModel="@{ViewModel}"
                         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                         tools:itemCount="5"
-                        tools:listitem="@layout/item_edit_field"
-                        app:Context="@{context}"
-                        app:ViewModel="@{ViewModel}"
-                        app:UserMobileList="@{ViewModel.mobileNoList}"
-                        />
+                        tools:listitem="@layout/item_edit_field" />
 
                 </RelativeLayout>
 
@@ -152,20 +154,20 @@
                     android:layout_marginTop="@dimen/_24sdp"
                     android:background="@color/white"
                     android:paddingStart="@dimen/_12sdp"
-                    android:paddingBottom="@dimen/_12sdp"
-                    android:paddingEnd="@dimen/_12sdp">
+                    android:paddingEnd="@dimen/_12sdp"
+                    android:paddingBottom="@dimen/_12sdp">
 
 
                     <androidx.recyclerview.widget.RecyclerView
                         android:id="@+id/rv_address"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        app:Context="@{context}"
+                        app:UserAddressList="@{ViewModel.addressList}"
+                        app:ViewModel="@{ViewModel}"
                         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                         tools:itemCount="1"
-                        tools:listitem="@layout/item_address"
-                        app:Context="@{context}"
-                        app:ViewModel="@{ViewModel}"
-                        app:UserAddressList="@{ViewModel.addressList}"/>
+                        tools:listitem="@layout/item_address" />
 
 
                 </RelativeLayout>
@@ -174,22 +176,22 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/_24sdp"
-                    android:paddingBottom="@dimen/_12sdp"
                     android:background="@color/white"
                     android:paddingStart="@dimen/_12sdp"
-                    android:paddingEnd="@dimen/_12sdp">
+                    android:paddingEnd="@dimen/_12sdp"
+                    android:paddingBottom="@dimen/_12sdp">
 
 
                     <androidx.recyclerview.widget.RecyclerView
                         android:id="@+id/rv_education"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        app:Context="@{context}"
+                        app:UserEducationList="@{ViewModel.educationList}"
+                        app:ViewModel="@{ViewModel}"
                         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                         tools:itemCount="1"
-                        tools:listitem="@layout/item_education"
-                        app:Context="@{context}"
-                        app:ViewModel="@{ViewModel}"
-                        app:UserEducationList="@{ViewModel.educationList}"/>
+                        tools:listitem="@layout/item_education" />
 
 
                 </RelativeLayout>
@@ -200,12 +202,12 @@
                     android:layout_height="@dimen/_48sdp"
                     android:layout_gravity="center_horizontal"
                     android:layout_margin="@dimen/_48sdp"
+                    android:enabled="@{ViewModel.isSubmitEnable()}"
                     android:fontFamily="@font/lato_black"
+                    android:onClick="@{() ->fragment.saveData()}"
                     android:padding="@dimen/_8sdp"
                     android:text="Submit"
-                    android:enabled="@{ViewModel.isSubmitEnable()}"
                     android:textColor="#FFFFFF"
-                    android:onClick="@{() ->fragment.saveData()}"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent" />

@@ -26,5 +26,5 @@ data class UserDetailWithRelations(
         entityColumn = "user_id"
     )
     val educations: List<Education>
-): Parcelable {
+) : Parcelable {
 }

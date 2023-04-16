@@ -57,9 +57,7 @@ class UserEducationAdapter(
             if (getItemViewType(position) == Constants.TYPE_EDIT_VIEW) {
                 val userEducationViewHolder: UserEducationViewHolder = holder as UserEducationViewHolder
                 if(position!=0){
-                    val drawable = ContextCompat.getDrawable(context, R.drawable.ic_delete)
-                   // userEducationViewHolder.binding.tvEducation.setCompoundDrawablesWithIntrinsicBounds(null, null, drawable, null)
-                    userEducationViewHolder.binding.ivDelete.setOnClickListener {
+                      userEducationViewHolder.binding.ivDelete.setOnClickListener {
                         if (userEducationList.size > 1 && position > 0) {
                             userEducationList.removeAt(position - 1)
                             notifyItemRemoved(position)
@@ -115,10 +113,6 @@ class UserEducationAdapter(
                 userEducationViewHolder.binding.etStartYear.textInputEdittext.setAdapter(ArrayAdapter.createFromResource(context, R.array.education_start_years, android.R.layout.simple_dropdown_item_1line))
              //   userEducationViewHolder.binding.etEndYear.textInputEdittext.setAdapter(ArrayAdapter.createFromResource(context, R.array.education_end_years, android.R.layout.simple_dropdown_item_1line))
                 val educationEndYears = context.resources.getStringArray(R.array.education_end_years)
-
-              /*  var adapter = ArrayAdapter.createFromResource(
-                    context, R.array.education_end_years, android.R.layout.simple_dropdown_item_1line
-                )*/
                 userEducationViewHolder.binding.etStartYear.textInputEdittext.setOnItemClickListener { parent, view, position, id ->
                     val startYear = parent.getItemAtPosition(position).toString()
                     userEducationViewHolder.binding.etEndYear.textInputEdittext.setAdapter(ArrayAdapter(context, android.R.layout.simple_dropdown_item_1line,educationEndYears.filter { it >= startYear }))

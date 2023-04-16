@@ -15,11 +15,6 @@ object Utility {
         return finalFileSize >= maxFileSize
     }
 
-    fun getMimeType(url: String): String? {
-        val extension = url.substring(url.lastIndexOf("."))
-        val mimeTypeMap = MimeTypeMap.getFileExtensionFromUrl(extension)
-        return MimeTypeMap.getSingleton().getMimeTypeFromExtension(mimeTypeMap)
-    }
 
     fun showSnackBar(view: View, message: String) {
         try {

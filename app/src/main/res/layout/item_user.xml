@@ -108,6 +108,7 @@
                     android:layout_marginStart="@dimen/_12sdp"
                     android:layout_toEndOf="@id/iv_address"
                     android:fontFamily="@font/lato_bold"
+                    android:text="@{User.addresses.size() > 0 ? (User.addresses.get(0).houseNo != null &amp;&amp; !User.addresses.get(0).houseNo.isEmpty() ? User.addresses.get(0).houseNo + `, ` : ``) + (User.addresses.get(0).area != null &amp;&amp; !User.addresses.get(0).area.isEmpty() ? User.addresses.get(0).area + `, ` : ``) + (User.addresses.get(0).city != null &amp;&amp; !User.addresses.get(0).city.isEmpty() ? User.addresses.get(0).city + `, ` : ``) + (User.addresses.get(0).state != null &amp;&amp; !User.addresses.get(0).state.isEmpty() ? User.addresses.get(0).state + `, ` : ``) + (User.addresses.get(0).pinCode != null &amp;&amp; User.addresses.get(0).pinCode > 0 ? User.addresses.get(0).pinCode : ``) : ``}"
                     android:textColor="@color/black"
                     android:textSize="@dimen/_13sdp" />
             </RelativeLayout>
@@ -159,7 +160,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="@dimen/_2sdp"
                         android:fontFamily="@font/lato"
-
+                        android:text="@{User.educations.size() > 0 ? (User.educations.get(0).startYear > 0 &amp;&amp; User.educations.get(0).endYear > 0  ? String.valueOf(User.educations.get(0).startYear) + ` - ` + String.valueOf(User.educations.get(0).endYear) : `N/A`) : `N/A`}"
                         android:textColor="#6B6868"
                         android:textSize="@dimen/_13sdp" />
 

@@ -9,7 +9,7 @@ import kotlinx.parcelize.Parcelize
 @Parcelize
 @Entity(tableName = "education")
 data class Education(
-    @PrimaryKey  //(autoGenerate = true)
+    @PrimaryKey
     @ColumnInfo(name = "education_id")
     var educationId: String,
 
@@ -30,5 +30,5 @@ data class Education(
 
     @ColumnInfo(name = "user_id")
     var userId: String?
-): Parcelable {
+) : Parcelable {
 }
