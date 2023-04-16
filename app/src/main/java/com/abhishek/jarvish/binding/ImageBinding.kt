@@ -18,8 +18,11 @@ object ImageBinding {
     @JvmStatic
     @BindingAdapter("imageUrl")
     fun setImageUrl(view: ImageView, url: String?) {
-        val bitmap = BitmapFactory.decodeFile(url)
-        view.setImageBitmap(bitmap)
+        if(!url.isNullOrEmpty()){
+            val bitmap = BitmapFactory.decodeFile(url)
+            view.setImageBitmap(bitmap)
+        }
+
     }
 
 }

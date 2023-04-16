@@ -12,6 +12,7 @@ class FillFormViewModel : ViewModel() {
     var isUserDetailFilled = MutableLiveData(false)
     var isAddressDetailFilled = MutableLiveData(false)
     var isEducationalDetailFilled = MutableLiveData(false)
+    var isProfileImageSelected = MutableLiveData(false)
 
     val mobileNoList = MutableLiveData<ArrayList<MobileNo>?>()
     val addressList = MutableLiveData<ArrayList<Address>?>()

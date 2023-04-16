@@ -47,6 +47,7 @@
                     android:id="@+id/ic_profile_image"
                     android:layout_width="@dimen/_45sdp"
                     android:layout_height="@dimen/_45sdp"
+                    android:src="@drawable/profile_icon"
                     app:imageUrl="@{User.userDetail.profileImage}" />
 
                 <LinearLayout
@@ -102,6 +103,7 @@
                     android:id="@+id/iv_address"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:paddingTop="@dimen/_2sdp"
                     android:src="@drawable/ic_address" />
 
                 <TextView

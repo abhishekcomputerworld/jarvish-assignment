@@ -87,7 +87,7 @@ class FillFormFragment : Fragment(), DeleteTablesDataInterface {
     }
 
     fun saveData() {
-        if (fillFormViewModel.isSubmitEnable.value==true) {
+        if (fillFormViewModel.isSubmitEnable.value==true && fillFormViewModel.isProfileImageSelected.value==true) {
             if (arguments != null) {
                 userDetailSharedViewModel.updateData(
                     requireContext(),
@@ -109,8 +109,13 @@ class FillFormFragment : Fragment(), DeleteTablesDataInterface {
             validatorForAddressFields(binding.rvAddress)
             validatorForUserDetailFields(binding.rvUserDetail)
             validatorForEducationalFields(binding.rvEducation)
-           Utility.showSnackBar(view?.rootView!!,"Please Fill Empty Field of Form")
+            if(fillFormViewModel.isProfileImageSelected.value==false){
+                Utility.showSnackBar(view?.rootView!!,"Please Fill Empty Field of Form and Upload Profile Images as well")
+            }else{
+                Utility.showSnackBar(view?.rootView!!,"Please Fill Empty Field of Form")
+            }
         }
+
     }
 
    private fun validatorForAddressFields(recyclerView: RecyclerView) {
@@ -220,6 +225,7 @@ class FillFormFragment : Fragment(), DeleteTablesDataInterface {
                     // fillFormViewModel.user.value?.profileImage = ImageBitmapString.bitMapToString(selectedImageBitmap)
                     fillFormViewModel.user.value?.profileImage =
                         saveImageToFileSystem(selectedImageBitmap)
+                    fillFormViewModel.isProfileImageSelected.value=true
                 } catch (e: IOException) {
                     binding.ivUpload.apply {
                         background =
