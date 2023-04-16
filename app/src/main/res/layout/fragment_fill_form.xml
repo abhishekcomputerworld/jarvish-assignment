@@ -213,7 +213,6 @@
                     android:onClick="@{() ->fragment.saveData()}"
                     android:padding="@dimen/_8sdp"
                     android:text="Submit"
-                    android:background="@drawable/bg_button"
                     android:textColor="#FFFFFF"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"

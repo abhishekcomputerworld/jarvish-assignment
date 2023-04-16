@@ -49,6 +49,7 @@ class UserDetailAdapter(
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, @SuppressLint("RecyclerView") position: Int) {
         with(holder) {
+            fillFormViewModel.isSubmitEnable.value = checkIfAllFieldsFilled()
             if (getItemViewType(position) == Constants.TYPE_EDIT_VIEW) {
                 val userAddressViewHolder: UserDetailViewHolder = holder as UserDetailViewHolder
                 if (position == 0) {
@@ -86,6 +87,7 @@ class UserDetailAdapter(
                             calendar.set(year, monthOfYear, dayOfMonth)
 
                             fillFormViewModel.user.value?.dob = calendar.time
+                            userAddressViewHolder.binding.textInputEdittext.error = null
                         }
 
                         val calendar = Calendar.getInstance()

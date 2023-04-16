@@ -20,7 +20,11 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
+import androidx.recyclerview.widget.RecyclerView
 import com.abhishek.jarvish.R
+import com.abhishek.jarvish.adapter.UserAddressAdapter
+import com.abhishek.jarvish.adapter.UserDetailAdapter
+import com.abhishek.jarvish.adapter.UserEducationAdapter
 import com.abhishek.jarvish.databinding.FragmentFillFormBinding
 import com.abhishek.jarvish.db.UserDetailViewModel
 import com.abhishek.jarvish.db.table.Address
@@ -83,23 +87,101 @@ class FillFormFragment : Fragment(), DeleteTablesDataInterface {
     }
 
     fun saveData() {
-        if (arguments != null) {
-            userDetailSharedViewModel.updateData(
-                requireContext(),
-                fillFormViewModel.getUserData().value?.userDetail?.userId,
-                fillFormViewModel.getUserData().value!!
-            )
+        if (fillFormViewModel.isSubmitEnable.value==true) {
+            if (arguments != null) {
+                userDetailSharedViewModel.updateData(
+                    requireContext(),
+                    fillFormViewModel.getUserData().value?.userDetail?.userId,
+                    fillFormViewModel.getUserData().value!!
+                )
+            } else {
+                userDetailSharedViewModel.insertData(
+                    requireContext(),
+                    fillFormViewModel.getUserData().value!!
+                )
+            }
+            if (arguments != null) {
+                arguments = null
+            }
+            fillFormViewModel.clearAllData()
+            findNavController().navigate(R.id.action_FirstFragment_to_SecondFragment)
         } else {
-            userDetailSharedViewModel.insertData(
-                requireContext(),
-                fillFormViewModel.getUserData().value!!
-            )
+            validatorForAddressFields(binding.rvAddress)
+            validatorForUserDetailFields(binding.rvUserDetail)
+            validatorForEducationalFields(binding.rvEducation)
+           Utility.showSnackBar(view?.rootView!!,"Please Fill Empty Field of Form")
         }
-        if (arguments != null) {
-            arguments = null
+    }
+
+   private fun validatorForAddressFields(recyclerView: RecyclerView) {
+        for (i in 0 until recyclerView.childCount) {
+            val viewHolder = recyclerView.getChildViewHolder(recyclerView.getChildAt(i))
+            if (viewHolder is UserAddressAdapter.UserAddressViewHolder) {
+                val userAddressViewHolder = viewHolder as UserAddressAdapter.UserAddressViewHolder
+                if (userAddressViewHolder.binding.etHouseNo.textInputEdittext.text.toString().isEmpty()) {
+                    userAddressViewHolder.binding.etHouseNo.textInputEdittext.error = "Please enter a valid data"
+                }
+                if (userAddressViewHolder.binding.etArea.textInputEdittext.text.toString().isEmpty()) {
+                    userAddressViewHolder.binding.etArea.textInputEdittext.error = "Please enter a valid data"
+                }
+                if (userAddressViewHolder.binding.etPinCode.textInputEdittext.text.toString().isEmpty()) {
+                    userAddressViewHolder.binding.etPinCode.textInputEdittext.error = "Please enter a valid data"
+                }
+                if (userAddressViewHolder.binding.etCity.textInputEdittext.text.toString().isEmpty()) {
+                    userAddressViewHolder.binding.etCity.textInputEdittext.error = "Please enter a valid data"
+                }
+                if (userAddressViewHolder.binding.etState.textInputEdittext.text.toString().isEmpty()) {
+                    userAddressViewHolder.binding.etState.textInputEdittext.error = "Please enter a valid data"
+                }
+
+            }
         }
-        fillFormViewModel.clearAllData()
-        findNavController().navigate(R.id.action_FirstFragment_to_SecondFragment)
+    }
+    private   fun validatorForUserDetailFields(recyclerView: RecyclerView) {
+        for (i in 0 until recyclerView.childCount) {
+            val viewHolder = recyclerView.getChildViewHolder(recyclerView.getChildAt(i))
+            if (viewHolder is UserDetailAdapter.UserDetailViewHolder) {
+                if (viewHolder is UserDetailAdapter.UserDetailViewHolder) {
+                    val userAddressViewHolder = viewHolder as UserDetailAdapter.UserDetailViewHolder
+                    if (userAddressViewHolder.binding.textInputEdittext.text.toString().isEmpty()) {
+                        userAddressViewHolder.binding.textInputEdittext.error = "Please enter a valid data"
+                    }
+                }
+            }
+        }
+    }
+    private  fun validatorForEducationalFields(recyclerView: RecyclerView) {
+        for (i in 0 until recyclerView.childCount) {
+            val viewHolder = recyclerView.getChildViewHolder(recyclerView.getChildAt(i))
+            if (viewHolder is UserEducationAdapter.UserEducationViewHolder) {
+                val userAddressViewHolder = viewHolder as UserEducationAdapter.UserEducationViewHolder
+                if (userAddressViewHolder.binding.etLevel.textInputEdittext.text.toString().isEmpty()) {
+                    userAddressViewHolder.binding.etLevel.textInputEdittext.error = "Please enter a valid data"
+                }else{
+                    userAddressViewHolder.binding.etLevel.textInputEdittext.error = null
+                }
+                if (userAddressViewHolder.binding.etStream.textInputEdittext.text.toString().isEmpty()) {
+                    userAddressViewHolder.binding.etStream.textInputEdittext.error = "Please enter a valid data"
+                }else{
+                    userAddressViewHolder.binding.etStream.textInputEdittext.error = null
+                }
+                if (userAddressViewHolder.binding.etStartYear.textInputEdittext.text.toString().isEmpty()) {
+                    userAddressViewHolder.binding.etStartYear.textInputEdittext.error = "Please enter a valid data"
+                }else{
+                    userAddressViewHolder.binding.etStartYear.textInputEdittext.error = null
+                }
+                if (userAddressViewHolder.binding.etEndYear.textInputEdittext.text.toString().isEmpty()) {
+                    userAddressViewHolder.binding.etEndYear.textInputEdittext.error = "Please enter a valid data"
+                }else{
+                    userAddressViewHolder.binding.etEndYear.textInputEdittext.error = null
+                }
+                if (userAddressViewHolder.binding.etCollege.textInputEdittext.text.toString().isEmpty()) {
+                    userAddressViewHolder.binding.etCollege.textInputEdittext.error = "Please enter a valid data"
+                }else{
+                    userAddressViewHolder.binding.etCollege.textInputEdittext.error = null
+                }
+            }
+        }
     }
 
     fun loadImageFromGallery() {
@@ -213,4 +295,7 @@ class FillFormFragment : Fragment(), DeleteTablesDataInterface {
             )
         }
     }
+
+
+
 }

@@ -46,6 +46,7 @@ class UserAddressAdapter(
     @SuppressLint("ClickableViewAccessibility")
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         with(holder) {
+            fillFormViewModel.isSubmitEnable.value =   checkIfAllFieldsFilled()
             if (getItemViewType(position) == Constants.TYPE_EDIT_VIEW) {
                 val userAddressViewHolder: UserAddressViewHolder = holder as UserAddressViewHolder
                 if (position != 0) {
@@ -54,7 +55,7 @@ class UserAddressAdapter(
                             deleteTablesDataInterface.onDeleteAddressTableItem(position,userAddressList[position])
                             userAddressList.removeAt(position )
                             notifyItemRemoved(position)
-                            //notifyItemRangeChanged(position, userAddressList.size - position)
+                            notifyItemRangeChanged(position, userAddressList.size - position)
                             fillFormViewModel.isSubmitEnable.value = checkIfAllFieldsFilled()
                         }
                     }
@@ -166,7 +167,8 @@ class UserAddressAdapter(
             if (address.houseNo.isNullOrEmpty() || address.area.isNullOrEmpty()
                 || address.pinCode == null || address.pinCode == 0 || address.city.isNullOrEmpty()
                 || address.state.isNullOrEmpty()) {
-                return true
+                fillFormViewModel.isAddressDetailFilled.value= false
+                return false
             }
         }
         fillFormViewModel.isAddressDetailFilled.value = true

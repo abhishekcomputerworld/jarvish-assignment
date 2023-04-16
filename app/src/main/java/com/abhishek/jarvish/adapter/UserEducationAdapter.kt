@@ -52,6 +52,7 @@ class UserEducationAdapter(
     @SuppressLint("ClickableViewAccessibility")
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         with(holder) {
+            fillFormViewModel.isSubmitEnable.value = checkIfAllFieldsFilled()
             if (getItemViewType(position) == Constants.TYPE_EDIT_VIEW) {
                 val userEducationViewHolder: UserEducationViewHolder =
                     holder as UserEducationViewHolder
@@ -185,22 +186,27 @@ class UserEducationAdapter(
                 userEducationViewHolder.binding.etLevel.textInputEdittext.addTextChangedListener { s ->
                     userEducationList[position].level = s.toString()
                     fillFormViewModel.isSubmitEnable.value = checkIfAllFieldsFilled()
+                    userEducationViewHolder.binding.etLevel.textInputEdittext.error = null
                 }
                 userEducationViewHolder.binding.etStream.textInputEdittext.addTextChangedListener { s ->
                     userEducationList[position].stream = s.toString()
                     fillFormViewModel.isSubmitEnable.value = checkIfAllFieldsFilled()
+                    userEducationViewHolder.binding.etStream.textInputEdittext.error = null
                 }
                 userEducationViewHolder.binding.etStartYear.textInputEdittext.addTextChangedListener { s ->
                     userEducationList[position].startYear = s.toString().toInt()
                     fillFormViewModel.isSubmitEnable.value = checkIfAllFieldsFilled()
+                    userEducationViewHolder.binding.etStartYear.textInputEdittext.error = null
                 }
                 userEducationViewHolder.binding.etEndYear.textInputEdittext.addTextChangedListener { s ->
                     userEducationList[position].endYear = s.toString().toInt()
                     fillFormViewModel.isSubmitEnable.value = checkIfAllFieldsFilled()
+                    userEducationViewHolder.binding.etEndYear.textInputEdittext.error = null
                 }
                 userEducationViewHolder.binding.etCollege.textInputEdittext.addTextChangedListener { s ->
                     userEducationList[position].college = s.toString()
                     fillFormViewModel.isSubmitEnable.value = checkIfAllFieldsFilled()
+                    userEducationViewHolder.binding.etCollege.textInputEdittext.error = null
                 }
 
 

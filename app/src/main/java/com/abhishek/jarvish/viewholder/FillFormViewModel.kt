@@ -8,10 +8,10 @@ import java.util.*
 class FillFormViewModel : ViewModel() {
 
 
-    var isSubmitEnable = MutableLiveData(true)
-    var isUserDetailFilled = MutableLiveData(true)
-    var isAddressDetailFilled = MutableLiveData(true)
-    var isEducationalDetailFilled = MutableLiveData(true)
+    var isSubmitEnable = MutableLiveData(false)
+    var isUserDetailFilled = MutableLiveData(false)
+    var isAddressDetailFilled = MutableLiveData(false)
+    var isEducationalDetailFilled = MutableLiveData(false)
 
     val mobileNoList = MutableLiveData<ArrayList<MobileNo>?>()
     val addressList = MutableLiveData<ArrayList<Address>?>()
@@ -72,8 +72,8 @@ class FillFormViewModel : ViewModel() {
         isSubmitEnable.value = false
     }
 
-    fun isSubmitButtonEnable() {
-        (isUserDetailFilled.value == true && isAddressDetailFilled.value == true && isEducationalDetailFilled.value == true)
+    fun isSubmitButtonEnable() :Boolean {
+      return  (isUserDetailFilled.value == true && isAddressDetailFilled.value == true && isEducationalDetailFilled.value == true)
     }
 
 
