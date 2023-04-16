@@ -47,8 +47,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/_12sdp"
-                android:fontFamily="@font/lato_black"
                 android:text="Fill form"
+                android:fontFamily="@font/lato_bold"
                 android:textColor="@color/black"
                 android:textSize="@dimen/_15sdp" />
         </LinearLayout>
@@ -114,7 +114,7 @@
                             android:fontFamily="@font/lato_bold"
                             android:text="Upload photo"
                             android:textColor="#4686E6"
-                            android:textSize="@dimen/_15sdp" />
+                            android:textSize="@dimen/_14sdp" />
                     </LinearLayout>
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -207,6 +207,7 @@
                     android:onClick="@{() ->fragment.saveData()}"
                     android:padding="@dimen/_8sdp"
                     android:text="Submit"
+                    android:background="@drawable/bg_button"
                     android:textColor="#FFFFFF"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"

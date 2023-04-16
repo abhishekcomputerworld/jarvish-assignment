@@ -33,7 +33,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/_12sdp"
+                android:layout_marginStart="@dimen/_10sdp"
                 android:fontFamily="@font/lato_bold"
                 android:text="@{AddMore}"
                 android:textColor="#4686E6"

@@ -69,7 +69,7 @@ class FillFormFragment : Fragment() {
             }
             fillFormViewModel.isSubmitEnable.value = true
         } else {
-            fillFormViewModel.addMobileData()
+                fillFormViewModel.addMobileData()
         }
         binding.executePendingBindings()
 
@@ -95,6 +95,10 @@ class FillFormFragment : Fragment() {
                 fillFormViewModel.getUserData().value!!
             )
         }
+        if(arguments!=null){
+            arguments=null
+        }
+        fillFormViewModel.clearAllData()
         findNavController().navigate(R.id.action_FirstFragment_to_SecondFragment)
     }
 

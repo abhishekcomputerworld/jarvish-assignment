@@ -54,7 +54,9 @@ class UserListFragment : Fragment(), UserListAdapter.UserEditClick {
             ?.observe(requireActivity(), Observer {
                 if (isAdded && context != null && it.isNotEmpty()) {
                     //  userDetailList = it.sortedBy { it.userDetail.firstName } as ArrayList<UserDetailWithRelations>
-                    userDetailList = it.reversed() as ArrayList<UserDetailWithRelations>
+                   // userDetailList = it.reversed() as ArrayList<UserDetailWithRelations>
+                    val originalList: List<UserDetailWithRelations> = it.reversed() as List<UserDetailWithRelations>
+                     userDetailList = ArrayList(originalList)
                     userListViewModel.userList.value = userDetailList
                 }
             })
@@ -70,15 +72,17 @@ class UserListFragment : Fragment(), UserListAdapter.UserEditClick {
 
             override fun onQueryTextChange(newText: String?): Boolean {
                 newText?.let {
-                    val filteredList = userDetailList.filter { user ->
-                        user.userDetail.firstName?.contains(newText, true) ?: false
-                    } as ArrayList<UserDetailWithRelations>
-                    binding.rvUserList.adapter?.apply {
-                        if (this is UserListAdapter) {
-                            val filteredList = userDetailList.filter { user ->
-                                user.userDetail.firstName?.contains(newText, true) ?: false
-                            } as ArrayList<UserDetailWithRelations>
-                            filterList(filteredList)
+                    if (::userDetailList.isInitialized) {
+                        val filteredList = userDetailList.filter { user ->
+                            user.userDetail.firstName?.contains(newText, true) ?: false
+                        } as ArrayList<UserDetailWithRelations>
+                        binding.rvUserList.adapter?.apply {
+                            if (this is UserListAdapter) {
+                                val filteredList = userDetailList.filter { user ->
+                                    user.userDetail.firstName?.contains(newText, true) ?: false
+                                } as ArrayList<UserDetailWithRelations>
+                                filterList(filteredList)
+                            }
                         }
                     }
                 }

@@ -8,23 +8,23 @@ import kotlinx.parcelize.Parcelize
 
 @Parcelize
 data class UserDetailWithRelations(
-    @Embedded val userDetail: UserDetailTable,
+    @Embedded var userDetail: UserDetailTable,
     @Relation(
         parentColumn = "user_id",
         entityColumn = "user_id"
     )
-    val mobileNumbers: List<MobileNo>,
+    var mobileNumbers: List<MobileNo>,
 
     @Relation(
         parentColumn = "user_id",
         entityColumn = "user_id"
     )
-    val addresses: List<Address>,
+    var addresses: List<Address>,
 
     @Relation(
         parentColumn = "user_id",
         entityColumn = "user_id"
     )
-    val educations: List<Education>
+    var educations: List<Education>
 ) : Parcelable {
 }

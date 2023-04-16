@@ -57,7 +57,6 @@
                     android:orientation="vertical">
 
                     <TextView
-                        android:id="@+id/fon"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:fontFamily="@font/lato_bold"
@@ -83,6 +82,9 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentEnd="true"
+                    android:paddingStart="@dimen/_12sdp"
+                    android:paddingEnd="@dimen/_12sdp"
+                    android:paddingBottom="@dimen/_12sdp"
                     android:src="@drawable/ic_edit" />
             </RelativeLayout>
 
@@ -107,6 +109,8 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/_12sdp"
                     android:layout_toEndOf="@id/iv_address"
+                    android:maxLines="2"
+                    android:ellipsize="end"
                     android:fontFamily="@font/lato_bold"
                     android:text="@{User.addresses.size() > 0 ? (User.addresses.get(0).houseNo != null &amp;&amp; !User.addresses.get(0).houseNo.isEmpty() ? User.addresses.get(0).houseNo + `, ` : ``) + (User.addresses.get(0).area != null &amp;&amp; !User.addresses.get(0).area.isEmpty() ? User.addresses.get(0).area + `, ` : ``) + (User.addresses.get(0).city != null &amp;&amp; !User.addresses.get(0).city.isEmpty() ? User.addresses.get(0).city + `, ` : ``) + (User.addresses.get(0).state != null &amp;&amp; !User.addresses.get(0).state.isEmpty() ? User.addresses.get(0).state + `, ` : ``) + (User.addresses.get(0).pinCode != null &amp;&amp; User.addresses.get(0).pinCode > 0 ? User.addresses.get(0).pinCode : ``) : ``}"
                     android:textColor="@color/black"
@@ -151,6 +155,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:fontFamily="@font/lato_black"
+                        android:maxLines="1"
                         android:text="@{User.educations.get(0).level}"
                         android:textColor="@color/black"
                         android:textSize="@dimen/_13sdp" />
@@ -158,6 +163,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:maxLines="1"
                         android:layout_marginTop="@dimen/_2sdp"
                         android:fontFamily="@font/lato"
                         android:text="@{User.educations.size() > 0 ? (User.educations.get(0).startYear > 0 &amp;&amp; User.educations.get(0).endYear > 0  ? String.valueOf(User.educations.get(0).startYear) + ` - ` + String.valueOf(User.educations.get(0).endYear) : `N/A`) : `N/A`}"
@@ -168,6 +174,8 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="@dimen/_2sdp"
+                        android:maxLines="1"
+                        android:ellipsize="end"
                         android:fontFamily="@font/lato"
                         android:text="@{User.educations.get(0).college}"
                         android:textColor="#342E2E"
