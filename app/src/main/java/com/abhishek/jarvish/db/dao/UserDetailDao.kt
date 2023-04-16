@@ -83,4 +83,23 @@ interface UserDetailDao {
         }
     }
 
+    @Delete
+    suspend fun deleteEducation(education: Education)
+
+    @Delete
+    suspend fun deleteAddress(address: Address)
+
+    @Delete
+    suspend fun deleteMobileNo(mobileNo: MobileNo)
+
+
+    @Query("DELETE FROM education WHERE education_id = :educationId AND user_id = :userId")
+    suspend fun deleteEducationByUserId(educationId: Int, userId: Int)
+
+    @Query("DELETE FROM address WHERE address_id = :addressId AND user_id = :userId")
+    suspend fun deleteAddressByUserId(addressId: Int, userId: Int)
+
+    @Query("DELETE FROM mobileNo WHERE mobile_id = :mobileNoId AND user_id = :userId")
+    suspend fun deleteMobileNoByUserId(mobileNoId: Int, userId: Int)
+
 }

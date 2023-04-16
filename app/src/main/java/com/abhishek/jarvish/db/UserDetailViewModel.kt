@@ -3,6 +3,9 @@ package com.abhishek.jarvish.db
 import android.content.Context
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
+import com.abhishek.jarvish.db.table.Address
+import com.abhishek.jarvish.db.table.Education
+import com.abhishek.jarvish.db.table.MobileNo
 import com.abhishek.jarvish.db.table.UserDetailWithRelations
 import dagger.hilt.android.lifecycle.HiltViewModel
 import dagger.hilt.android.qualifiers.ActivityContext
@@ -24,8 +27,25 @@ class UserDetailViewModel @Inject constructor(private val repository: Repository
         return userList
     }
 
-    fun updateData(@ActivityContext requireContext: Context, userId: String?, value: UserDetailWithRelations) {
+    fun updateData(
+        @ActivityContext requireContext: Context,
+        userId: String?,
+        value: UserDetailWithRelations
+    ) {
         repository.updateUserList(requireContext, userId, value)
+    }
+
+    fun deleteMobileNo(@ApplicationContext context: Context, mobileNo: MobileNo) {
+        repository.deleteMobileNo(context, mobileNo)
+
+    }
+
+    fun deleteEducation(@ApplicationContext context: Context, education: Education) {
+        repository.deleteEducation(context, education)
+    }
+
+    fun deleteAddress(@ApplicationContext context: Context, address: Address) {
+        repository.deleteAddress(context, address)
     }
 }
 

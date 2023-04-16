@@ -6,6 +6,9 @@
         <variable
             name="fragment"
             type="com.abhishek.jarvish.fragments.FillFormFragment" />
+        <variable
+            name="DeleteTableInterface"
+            type="com.abhishek.jarvish.interfaces.DeleteTablesDataInterface" />
 
         <variable
             name="ViewModel"
@@ -30,6 +33,7 @@
             android:id="@+id/ll_fill_form_toolbar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:paddingTop="@dimen/_10sdp"
             android:gravity="center_vertical"
             android:padding="@dimen/_12sdp"
             app:layout_constraintEnd_toEndOf="parent"
@@ -140,6 +144,7 @@
                         android:layout_height="wrap_content"
                         android:layout_below="@+id/tv_personal_detail"
                         app:Context="@{context}"
+                        app:Interface="@{DeleteTableInterface}"
                         app:UserMobileList="@{ViewModel.mobileNoList}"
                         app:ViewModel="@{ViewModel}"
                         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
@@ -163,6 +168,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         app:Context="@{context}"
+                        app:Interface="@{DeleteTableInterface}"
                         app:UserAddressList="@{ViewModel.addressList}"
                         app:ViewModel="@{ViewModel}"
                         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
@@ -188,6 +194,7 @@
                         android:layout_height="wrap_content"
                         app:Context="@{context}"
                         app:UserEducationList="@{ViewModel.educationList}"
+                        app:Interface="@{DeleteTableInterface}"
                         app:ViewModel="@{ViewModel}"
                         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                         tools:itemCount="1"
@@ -202,7 +209,6 @@
                     android:layout_height="@dimen/_48sdp"
                     android:layout_gravity="center_horizontal"
                     android:layout_margin="@dimen/_48sdp"
-                    android:enabled="@{ViewModel.isSubmitEnable()}"
                     android:fontFamily="@font/lato_black"
                     android:onClick="@{() ->fragment.saveData()}"
                     android:padding="@dimen/_8sdp"

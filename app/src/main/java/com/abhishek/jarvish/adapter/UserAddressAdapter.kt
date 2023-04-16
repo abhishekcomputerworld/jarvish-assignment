@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.abhishek.jarvish.databinding.ItemAddMoreBinding
 import com.abhishek.jarvish.databinding.ItemAddressBinding
 import com.abhishek.jarvish.db.table.Address
+import com.abhishek.jarvish.interfaces.DeleteTablesDataInterface
 import com.abhishek.jarvish.utils.Constants
 import com.abhishek.jarvish.viewholder.FillFormViewModel
 import java.util.*
@@ -18,6 +19,7 @@ import java.util.*
 class UserAddressAdapter(
     private val context: Context,
     private val fillFormViewModel: FillFormViewModel,
+    private val deleteTablesDataInterface: DeleteTablesDataInterface,
     private val userAddressList: ArrayList<Address>
 ) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
@@ -49,9 +51,11 @@ class UserAddressAdapter(
                 if (position != 0) {
                     userAddressViewHolder.binding.ivDelete.setOnClickListener {
                         if (userAddressList.size > 1 && position > 0) {
-                            userAddressList.removeAt(position - 1)
+                            deleteTablesDataInterface.onDeleteAddressTableItem(position,userAddressList[position])
+                            userAddressList.removeAt(position )
                             notifyItemRemoved(position)
-                            notifyItemRangeChanged(position, userAddressList.size - position)
+                            //notifyItemRangeChanged(position, userAddressList.size - position)
+                            fillFormViewModel.isSubmitEnable.value = checkIfAllFieldsFilled()
                         }
                     }
 
@@ -61,9 +65,9 @@ class UserAddressAdapter(
 
                 userAddressViewHolder.binding.etHouseNo.textInputLayout.hint =
                     "House no, flat, building, apartment"
-                if (!userAddressList[position].houseNo.isNullOrEmpty()) {
+                if (!fillFormViewModel.addressList.value?.get(position)?.houseNo.isNullOrEmpty()) {
                     userAddressViewHolder.binding.etHouseNo.textInputEdittext.setText(
-                        userAddressList[position].houseNo
+                        fillFormViewModel.addressList.value?.get(position)?.houseNo
                     )
                 } else {
                     userAddressViewHolder.binding.etHouseNo.textInputEdittext.hint =
@@ -71,8 +75,8 @@ class UserAddressAdapter(
                 }
                 userAddressViewHolder.binding.etArea.textInputLayout.hint =
                     "Area, street, sector, village"
-                if (!userAddressList[position].area.isNullOrEmpty()) {
-                    userAddressViewHolder.binding.etArea.textInputEdittext.setText(userAddressList[position].area)
+                if (! fillFormViewModel.addressList.value?.get(position)?.area.isNullOrEmpty()) {
+                    userAddressViewHolder.binding.etArea.textInputEdittext.setText( fillFormViewModel.addressList.value?.get(position)?.area)
                 } else {
                     userAddressViewHolder.binding.etArea.textInputEdittext.hint =
                         "Enter your address"
@@ -103,18 +107,23 @@ class UserAddressAdapter(
                 }
                 userAddressViewHolder.binding.etHouseNo.textInputEdittext.addTextChangedListener { s ->
                     userAddressList[position].houseNo = s.toString()
+                    fillFormViewModel.isSubmitEnable.value = checkIfAllFieldsFilled()
                 }
                 userAddressViewHolder.binding.etArea.textInputEdittext.addTextChangedListener { s ->
                     userAddressList[position].area = s.toString()
+                    fillFormViewModel.isSubmitEnable.value = checkIfAllFieldsFilled()
                 }
                 userAddressViewHolder.binding.etPinCode.textInputEdittext.addTextChangedListener { s ->
                     userAddressList[position].pinCode = s.toString().toInt()
+                    fillFormViewModel.isSubmitEnable.value = checkIfAllFieldsFilled()
                 }
                 userAddressViewHolder.binding.etCity.textInputEdittext.addTextChangedListener { s ->
                     userAddressList[position].city = s.toString()
+                    fillFormViewModel.isSubmitEnable.value = checkIfAllFieldsFilled()
                 }
                 userAddressViewHolder.binding.etState.textInputEdittext.addTextChangedListener { s ->
                     userAddressList[position].state = s.toString()
+                    fillFormViewModel.isSubmitEnable.value = checkIfAllFieldsFilled()
                 }
 
             } else {
@@ -134,6 +143,7 @@ class UserAddressAdapter(
                         )
                     )
                     notifyItemInserted(userAddressList.size)
+                  //  fillFormViewModel.isSubmitEnable.value = checkIfAllFieldsFilled()
                 }
             }
         }
@@ -149,5 +159,17 @@ class UserAddressAdapter(
         } else {
             Constants.TYPE_ADD_MORE
         }
+    }
+
+    private fun checkIfAllFieldsFilled(): Boolean {
+        for (address in userAddressList) {
+            if (address.houseNo.isNullOrEmpty() || address.area.isNullOrEmpty()
+                || address.pinCode == null || address.pinCode == 0 || address.city.isNullOrEmpty()
+                || address.state.isNullOrEmpty()) {
+                return true
+            }
+        }
+        fillFormViewModel.isAddressDetailFilled.value = true
+        return fillFormViewModel.isEducationalDetailFilled.value!! && fillFormViewModel.isUserDetailFilled.value!!
     }
 }

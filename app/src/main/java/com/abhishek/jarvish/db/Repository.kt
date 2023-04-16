@@ -2,6 +2,9 @@ package com.abhishek.jarvish.db
 
 import android.content.Context
 import androidx.lifecycle.LiveData
+import com.abhishek.jarvish.db.table.Address
+import com.abhishek.jarvish.db.table.Education
+import com.abhishek.jarvish.db.table.MobileNo
 import com.abhishek.jarvish.db.table.UserDetailWithRelations
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -47,6 +50,27 @@ class Repository @Inject constructor(private val appDatabase: AppDatabase) {
                 userDetailTable.addresses,
                 userDetailTable.educations
             )
+        }
+    }
+
+    fun deleteMobileNo(
+        context: Context,
+        mobileNo: MobileNo
+    ) {
+        CoroutineScope(Dispatchers.IO).launch {
+            appDatabase.userDetailDao().deleteMobileNo(mobileNo)
+        }
+    }
+
+    fun deleteAddress(context: Context, address: Address) {
+        CoroutineScope(Dispatchers.IO).launch {
+            appDatabase.userDetailDao().deleteAddress(address)
+        }
+    }
+
+    fun deleteEducation(context: Context, education: Education) {
+        CoroutineScope(Dispatchers.IO).launch {
+            appDatabase.userDetailDao().deleteEducation(education)
         }
     }
 

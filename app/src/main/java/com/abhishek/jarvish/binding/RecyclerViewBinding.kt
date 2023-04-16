@@ -11,49 +11,53 @@ import com.abhishek.jarvish.db.table.Address
 import com.abhishek.jarvish.db.table.Education
 import com.abhishek.jarvish.db.table.MobileNo
 import com.abhishek.jarvish.db.table.UserDetailWithRelations
+import com.abhishek.jarvish.interfaces.DeleteTablesDataInterface
 import com.abhishek.jarvish.viewholder.FillFormViewModel
 
 object RecyclerViewBinding {
 
     @JvmStatic
-    @BindingAdapter("Context", "ViewModel", "UserMobileList")
+    @BindingAdapter("Context", "ViewModel","Interface", "UserMobileList")
     fun setUserDetailRecyclerView(
         recyclerView: RecyclerView,
         context: Context,
         fillFormViewModel: FillFormViewModel,
+        deleteTablesDataInterface: DeleteTablesDataInterface,
         userMobileList: ArrayList<MobileNo>?
     ) {
         if (userMobileList != null) {
-            recyclerView.adapter = UserDetailAdapter(context, fillFormViewModel, userMobileList)
+            recyclerView.adapter = UserDetailAdapter(context, fillFormViewModel, deleteTablesDataInterface,userMobileList)
         }
     }
 
 
     @JvmStatic
-    @BindingAdapter("Context", "ViewModel", "UserAddressList")
+    @BindingAdapter("Context", "ViewModel","Interface", "UserAddressList")
     fun setUserAddressRecyclerView(
         recyclerView: RecyclerView,
         context: Context,
         fillFormViewModel: FillFormViewModel,
+        deleteTablesDataInterface: DeleteTablesDataInterface,
         userAddressList: ArrayList<Address>?
     ) {
         if (userAddressList != null) {
-            recyclerView.adapter = UserAddressAdapter(context, fillFormViewModel, userAddressList)
+            recyclerView.adapter = UserAddressAdapter(context, fillFormViewModel,deleteTablesDataInterface, userAddressList)
         }
     }
 
 
     @JvmStatic
-    @BindingAdapter("Context", "ViewModel", "UserEducationList")
+    @BindingAdapter("Context", "ViewModel","Interface", "UserEducationList")
     fun setUserEducationRecyclerView(
         recyclerView: RecyclerView,
         context: Context,
         fillFormViewModel: FillFormViewModel,
+        deleteTablesDataInterface: DeleteTablesDataInterface,
         userEducationList: ArrayList<Education>?
     ) {
         if (userEducationList != null) {
             recyclerView.adapter =
-                UserEducationAdapter(context, fillFormViewModel, userEducationList)
+                UserEducationAdapter(context, fillFormViewModel, deleteTablesDataInterface,userEducationList)
         }
     }
 

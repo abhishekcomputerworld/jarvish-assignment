@@ -17,6 +17,7 @@ import com.abhishek.jarvish.R
 import com.abhishek.jarvish.databinding.ItemAddMoreBinding
 import com.abhishek.jarvish.databinding.ItemEditFieldBinding
 import com.abhishek.jarvish.db.table.MobileNo
+import com.abhishek.jarvish.interfaces.DeleteTablesDataInterface
 import com.abhishek.jarvish.utils.Constants
 import com.abhishek.jarvish.viewholder.FillFormViewModel
 import java.util.*
@@ -24,6 +25,7 @@ import java.util.*
 class UserDetailAdapter(
     private val context: Context,
     private val fillFormViewModel: FillFormViewModel,
+    private val deleteTablesDataInterface: DeleteTablesDataInterface,
     private val userMobileList: ArrayList<MobileNo>
 ) :
     RecyclerView.Adapter<RecyclerView.ViewHolder>() {
@@ -58,6 +60,7 @@ class UserDetailAdapter(
                     }
                     userAddressViewHolder.binding.textInputEdittext.addTextChangedListener {s ->
                         fillFormViewModel.user.value?.firstName = s.toString()
+                        fillFormViewModel.isSubmitEnable.value = checkIfAllFieldsFilled()
                     }
                 } else if (position == 1) {
                     userAddressViewHolder.binding.textInputLayout.hint = "Last name"
@@ -68,11 +71,13 @@ class UserDetailAdapter(
                     }
                     userAddressViewHolder.binding.textInputEdittext.addTextChangedListener {s ->
                         fillFormViewModel.user.value?.lastName = s.toString()
+                        fillFormViewModel.isSubmitEnable.value = checkIfAllFieldsFilled()
                     }
                 } else if (position == 2) {
                     userAddressViewHolder. binding.textInputLayout.hint = "DOB"
                     userAddressViewHolder.binding.textInputEdittext.inputType= InputType.TYPE_NULL
                     val drawable = ContextCompat.getDrawable(context, R.drawable.ic_calender)
+                    userAddressViewHolder.binding.textInputEdittext.setCompoundDrawablesWithIntrinsicBounds(null, null, drawable, null)
                     userAddressViewHolder.binding.textInputEdittext.setOnClickListener {
                         val dateSetListener = DatePickerDialog.OnDateSetListener { view, year, monthOfYear, dayOfMonth ->
                             val date = "$dayOfMonth/${monthOfYear + 1}/$year"
@@ -92,14 +97,15 @@ class UserDetailAdapter(
                     }
                     if((fillFormViewModel.user.value?.dob?.time?: 0) > 0){
                         userAddressViewHolder.binding.textInputEdittext.setText(
-                           DateFormat.format(
+                            DateFormat.format(
                                 "dd/MM/yyyy",
                                 fillFormViewModel.user.value?.dob
-                           ))
-                    } else{
+                            ))
+                        fillFormViewModel.isSubmitEnable.value = checkIfAllFieldsFilled()
+                    }
+                    else{
                         userAddressViewHolder.binding.textInputEdittext.hint = "Select date of birth"
                     }
-                    userAddressViewHolder.binding.textInputEdittext.setCompoundDrawablesWithIntrinsicBounds(null, null, drawable, null)
                 } else if (position == 3) {
                     userAddressViewHolder.binding.textInputLayout.hint = "Mobile No."
                     userAddressViewHolder.binding.textInputEdittext.inputType=InputType.TYPE_CLASS_PHONE
@@ -115,6 +121,7 @@ class UserDetailAdapter(
 
                         override fun afterTextChanged(s: Editable?) {
                             userMobileList[0].mobileNo = s.toString()
+                            fillFormViewModel.isSubmitEnable.value = checkIfAllFieldsFilled()
                             if (s.isNullOrEmpty()) {
                                 userAddressViewHolder.binding.textInputEdittext.error = "Phone number is required"
                             } else if (s.length < 10) {
@@ -144,6 +151,7 @@ class UserDetailAdapter(
 
                         override fun afterTextChanged(s: Editable?) {
                             userMobileList[position-3]?.mobileNo = s.toString()
+                            fillFormViewModel.isSubmitEnable.value = checkIfAllFieldsFilled()
                             if (s.isNullOrEmpty()) {
                                 userAddressViewHolder.binding.textInputEdittext.error = "Phone number is required"
                             } else if (s.length < 10) {
@@ -169,9 +177,11 @@ class UserDetailAdapter(
                             if (event.rawX >= textInputEditText.getRight() - deleteIcon.getBounds().width()) {
                                 // User clicked on the delete icon
                                 if (userMobileList.size > 1 && position > 0) {
+                                    deleteTablesDataInterface.onDeleteMobileTableItem(position,userMobileList[position - 3])
                                     userMobileList.removeAt(position - 3)
                                     notifyItemRemoved(position)
                                     notifyItemRangeChanged(position, userMobileList.size - (position-3))
+                                    fillFormViewModel.isSubmitEnable.value = checkIfAllFieldsFilled()
                                 }
 
                                 true
@@ -190,6 +200,7 @@ class UserDetailAdapter(
                 addMoreViewHolder.binding.llAddMore.setOnClickListener {
                     userMobileList.add(MobileNo(UUID.randomUUID().toString(),"",UUID.randomUUID().toString()))
                     notifyItemInserted(userMobileList.size + 3)
+                    fillFormViewModel.isSubmitEnable.value = checkIfAllFieldsFilled()
                 }
 
             }
@@ -208,4 +219,17 @@ class UserDetailAdapter(
             Constants.TYPE_ADD_MORE
         }
     }
+
+  private fun checkIfAllFieldsFilled(): Boolean {
+      if(fillFormViewModel.user.value?.firstName.isNullOrEmpty() || fillFormViewModel.user.value?.lastName.isNullOrEmpty() || fillFormViewModel.user.value?.dob==null){
+          return false
+      }
+      for (mobileNo in userMobileList) {
+          if (mobileNo.mobileNo.isNullOrEmpty()) {
+              return false
+          }
+      }
+      fillFormViewModel.isUserDetailFilled.value = true
+      return fillFormViewModel.isEducationalDetailFilled.value!! && fillFormViewModel.isAddressDetailFilled.value!!
+  }
 }

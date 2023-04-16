@@ -27,6 +27,7 @@ import com.abhishek.jarvish.db.table.Address
 import com.abhishek.jarvish.db.table.Education
 import com.abhishek.jarvish.db.table.MobileNo
 import com.abhishek.jarvish.db.table.UserDetailWithRelations
+import com.abhishek.jarvish.interfaces.DeleteTablesDataInterface
 import com.abhishek.jarvish.utils.Utility
 import com.abhishek.jarvish.viewholder.FillFormViewModel
 import java.io.File
@@ -35,7 +36,7 @@ import java.io.IOException
 import java.util.*
 
 
-class FillFormFragment : Fragment() {
+class FillFormFragment : Fragment(), DeleteTablesDataInterface {
 
     private var _binding: FragmentFillFormBinding? = null
     private val binding get() = _binding!!
@@ -56,6 +57,7 @@ class FillFormFragment : Fragment() {
         binding.lifecycleOwner = this
         binding.viewModel = this.fillFormViewModel
         binding.fragment = this
+        binding.deleteTableInterface = this
         if (arguments != null) {
             var user = arguments?.getParcelable<UserDetailWithRelations>("userData")
             fillFormViewModel.user.value = user?.userDetail
@@ -67,13 +69,11 @@ class FillFormFragment : Fragment() {
                 val bitmap = BitmapFactory.decodeFile(user?.userDetail?.profileImage)
                 binding.ivUpload.setImageBitmap(bitmap)
             }
-            fillFormViewModel.isSubmitEnable.value = true
+            fillFormViewModel.isSubmitButtonEnable()
         } else {
-                fillFormViewModel.addMobileData()
+            fillFormViewModel.addMobileData()
         }
         binding.executePendingBindings()
-
-
     }
 
 
@@ -95,8 +95,8 @@ class FillFormFragment : Fragment() {
                 fillFormViewModel.getUserData().value!!
             )
         }
-        if(arguments!=null){
-            arguments=null
+        if (arguments != null) {
+            arguments = null
         }
         fillFormViewModel.clearAllData()
         findNavController().navigate(R.id.action_FirstFragment_to_SecondFragment)
@@ -184,6 +184,33 @@ class FillFormFragment : Fragment() {
             requireActivity().finish()
         } else {
             findNavController().navigate(R.id.action_FirstFragment_to_SecondFragment)
+        }
+    }
+
+    override fun onDeleteMobileTableItem(position: Int, mobileNo: MobileNo) {
+        if (arguments != null) {
+            userDetailSharedViewModel.deleteMobileNo(
+                requireContext(),
+                mobileNo
+            )
+        }
+    }
+
+    override fun onDeleteEducationTableItem(position: Int, education: Education) {
+        if (arguments != null) {
+            userDetailSharedViewModel.deleteEducation(
+                requireContext(),
+                education
+            )
+        }
+    }
+
+    override fun onDeleteAddressTableItem(position: Int, address: Address) {
+        if (arguments != null) {
+            userDetailSharedViewModel.deleteAddress(
+                requireContext(),
+                address
+            )
         }
     }
 }
