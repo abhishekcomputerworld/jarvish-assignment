@@ -186,29 +186,59 @@ class UserEducationAdapter(
                 userEducationViewHolder.binding.etLevel.textInputEdittext.addTextChangedListener { s ->
                     userEducationList[position].level = s.toString()
                     fillFormViewModel.isSubmitEnable.value = checkIfAllFieldsFilled()
-                    userEducationViewHolder.binding.etLevel.textInputEdittext.error = null
+                    userEducationViewHolder.binding.etLevel.textInputLayout.error = null
                 }
                 userEducationViewHolder.binding.etStream.textInputEdittext.addTextChangedListener { s ->
                     userEducationList[position].stream = s.toString()
                     fillFormViewModel.isSubmitEnable.value = checkIfAllFieldsFilled()
-                    userEducationViewHolder.binding.etStream.textInputEdittext.error = null
+                    userEducationViewHolder.binding.etStream.textInputLayout.error = null
                 }
                 userEducationViewHolder.binding.etStartYear.textInputEdittext.addTextChangedListener { s ->
                     userEducationList[position].startYear = s.toString().toInt()
                     fillFormViewModel.isSubmitEnable.value = checkIfAllFieldsFilled()
-                    userEducationViewHolder.binding.etStartYear.textInputEdittext.error = null
+                    userEducationViewHolder.binding.etStartYear.textInputLayout.error = null
                 }
                 userEducationViewHolder.binding.etEndYear.textInputEdittext.addTextChangedListener { s ->
                     userEducationList[position].endYear = s.toString().toInt()
                     fillFormViewModel.isSubmitEnable.value = checkIfAllFieldsFilled()
-                    userEducationViewHolder.binding.etEndYear.textInputEdittext.error = null
+                    userEducationViewHolder.binding.etEndYear.textInputLayout.error = null
                 }
                 userEducationViewHolder.binding.etCollege.textInputEdittext.addTextChangedListener { s ->
                     userEducationList[position].college = s.toString()
                     fillFormViewModel.isSubmitEnable.value = checkIfAllFieldsFilled()
-                    userEducationViewHolder.binding.etCollege.textInputEdittext.error = null
+                    userEducationViewHolder.binding.etCollege.textInputLayout.error = null
                 }
 
+                userEducationViewHolder.binding.etLevel.textInputEdittext.onFocusChangeListener = View.OnFocusChangeListener { _, hasFocus ->
+                    if (hasFocus) {
+                        userEducationViewHolder.binding.etLevel.textInputLayout.error = null
+                        userEducationViewHolder.binding.etLevel.textInputEdittext.requestFocus()
+                    }
+                }
+                userEducationViewHolder.binding.etStream.textInputEdittext.onFocusChangeListener = View.OnFocusChangeListener { _, hasFocus ->
+                    if (hasFocus) {
+                        userEducationViewHolder.binding.etStream.textInputLayout.error = null
+                        userEducationViewHolder.binding.etStream.textInputEdittext.requestFocus()
+                    }
+                }
+                userEducationViewHolder.binding.etStartYear.textInputEdittext.onFocusChangeListener = View.OnFocusChangeListener { _, hasFocus ->
+                    if (hasFocus) {
+                        userEducationViewHolder.binding.etStartYear.textInputLayout.error = null
+                        userEducationViewHolder.binding.etStartYear.textInputEdittext.requestFocus()
+                    }
+                }
+                userEducationViewHolder.binding.etEndYear.textInputEdittext.onFocusChangeListener = View.OnFocusChangeListener { _, hasFocus ->
+                    if (hasFocus) {
+                        userEducationViewHolder.binding.etEndYear.textInputLayout.error = null
+                        userEducationViewHolder.binding.etEndYear.textInputEdittext.requestFocus()
+                    }
+                }
+                userEducationViewHolder.binding.etCollege.textInputEdittext.onFocusChangeListener = View.OnFocusChangeListener { _, hasFocus ->
+                    if (hasFocus) {
+                        userEducationViewHolder.binding.etCollege.textInputLayout.error = null
+                        userEducationViewHolder.binding.etCollege.textInputEdittext.requestFocus()
+                    }
+                }
 
             } else {
                 val addMoreViewHolder: UserEducationAdapter.AddMoreViewHolder =

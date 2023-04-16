@@ -109,22 +109,57 @@ class UserAddressAdapter(
                 userAddressViewHolder.binding.etHouseNo.textInputEdittext.addTextChangedListener { s ->
                     userAddressList[position].houseNo = s.toString()
                     fillFormViewModel.isSubmitEnable.value = checkIfAllFieldsFilled()
+                    userAddressViewHolder.binding.etHouseNo.textInputLayout.error = null
+                }
+                userAddressViewHolder.binding.etHouseNo.textInputEdittext.onFocusChangeListener = View.OnFocusChangeListener { _, hasFocus ->
+                    if (hasFocus) {
+                        userAddressViewHolder.binding.etHouseNo.textInputLayout.error = null
+                        userAddressViewHolder.binding.etHouseNo.textInputEdittext.requestFocus()
+                    }
                 }
                 userAddressViewHolder.binding.etArea.textInputEdittext.addTextChangedListener { s ->
                     userAddressList[position].area = s.toString()
                     fillFormViewModel.isSubmitEnable.value = checkIfAllFieldsFilled()
+                    userAddressViewHolder.binding.etArea.textInputLayout.error = null
+                }
+                userAddressViewHolder.binding.etArea.textInputEdittext.onFocusChangeListener = View.OnFocusChangeListener { _, hasFocus ->
+                    if (hasFocus) {
+                        userAddressViewHolder.binding.etArea.textInputLayout.error = null
+                        userAddressViewHolder.binding.etArea.textInputEdittext.requestFocus()
+                    }
                 }
                 userAddressViewHolder.binding.etPinCode.textInputEdittext.addTextChangedListener { s ->
                     userAddressList[position].pinCode = s.toString().toInt()
                     fillFormViewModel.isSubmitEnable.value = checkIfAllFieldsFilled()
+                    userAddressViewHolder.binding.etPinCode.textInputLayout.error = null
+                }
+                userAddressViewHolder.binding.etPinCode.textInputEdittext.onFocusChangeListener = View.OnFocusChangeListener { _, hasFocus ->
+                    if (hasFocus) {
+                        userAddressViewHolder.binding.etPinCode.textInputLayout.error = null
+                        userAddressViewHolder.binding.etPinCode.textInputEdittext.requestFocus()
+                    }
                 }
                 userAddressViewHolder.binding.etCity.textInputEdittext.addTextChangedListener { s ->
                     userAddressList[position].city = s.toString()
                     fillFormViewModel.isSubmitEnable.value = checkIfAllFieldsFilled()
+                    userAddressViewHolder.binding.etCity.textInputLayout.error = null
+                }
+                userAddressViewHolder.binding.etCity.textInputEdittext.onFocusChangeListener = View.OnFocusChangeListener { _, hasFocus ->
+                    if (hasFocus) {
+                        userAddressViewHolder.binding.etCity.textInputLayout.error = null
+                        userAddressViewHolder.binding.etCity.textInputEdittext.requestFocus()
+                    }
                 }
                 userAddressViewHolder.binding.etState.textInputEdittext.addTextChangedListener { s ->
                     userAddressList[position].state = s.toString()
                     fillFormViewModel.isSubmitEnable.value = checkIfAllFieldsFilled()
+                    userAddressViewHolder.binding.etState.textInputLayout.error = null
+                }
+                userAddressViewHolder.binding.etState.textInputEdittext.onFocusChangeListener = View.OnFocusChangeListener { _, hasFocus ->
+                    if (hasFocus) {
+                        userAddressViewHolder.binding.etState.textInputLayout.error = null
+                        userAddressViewHolder.binding.etState.textInputEdittext.requestFocus()
+                    }
                 }
 
             } else {

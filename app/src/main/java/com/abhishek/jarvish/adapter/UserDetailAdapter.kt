@@ -9,6 +9,7 @@ import android.text.TextWatcher
 import android.text.format.DateFormat
 import android.view.LayoutInflater
 import android.view.MotionEvent
+import android.view.View
 import android.view.ViewGroup
 import androidx.core.content.ContextCompat
 import androidx.core.widget.addTextChangedListener
@@ -62,7 +63,9 @@ class UserDetailAdapter(
                     userAddressViewHolder.binding.textInputEdittext.addTextChangedListener {s ->
                         fillFormViewModel.user.value?.firstName = s.toString()
                         fillFormViewModel.isSubmitEnable.value = checkIfAllFieldsFilled()
+                        userAddressViewHolder.binding.textInputLayout.error = null
                     }
+
                 } else if (position == 1) {
                     userAddressViewHolder.binding.textInputLayout.hint = "Last name"
                     if(!fillFormViewModel.user.value?.lastName.isNullOrEmpty()){
@@ -73,6 +76,7 @@ class UserDetailAdapter(
                     userAddressViewHolder.binding.textInputEdittext.addTextChangedListener {s ->
                         fillFormViewModel.user.value?.lastName = s.toString()
                         fillFormViewModel.isSubmitEnable.value = checkIfAllFieldsFilled()
+                        userAddressViewHolder.binding.textInputLayout.error = null
                     }
                 } else if (position == 2) {
                     userAddressViewHolder. binding.textInputLayout.hint = "DOB"
@@ -87,7 +91,10 @@ class UserDetailAdapter(
                             calendar.set(year, monthOfYear, dayOfMonth)
 
                             fillFormViewModel.user.value?.dob = calendar.time
-                            userAddressViewHolder.binding.textInputEdittext.error = null
+                            userAddressViewHolder.binding.textInputLayout.error = null
+                            val drawable = ContextCompat.getDrawable(context, R.drawable.ic_calender)
+                            userAddressViewHolder.binding.textInputEdittext.setCompoundDrawablesWithIntrinsicBounds(null, null, drawable, null)
+
                         }
 
                         val calendar = Calendar.getInstance()
@@ -123,15 +130,16 @@ class UserDetailAdapter(
 
                         override fun afterTextChanged(s: Editable?) {
                             userMobileList[0].mobileNo = s.toString()
-                            fillFormViewModel.isSubmitEnable.value = checkIfAllFieldsFilled()
                             if (s.isNullOrEmpty()) {
-                                userAddressViewHolder.binding.textInputEdittext.error = "Phone number is required"
+                                userAddressViewHolder.binding.textInputLayout.error = "Phone number is required"
                             } else if (s.length < 10) {
-                                userAddressViewHolder.binding.textInputEdittext.error = "Phone number must be at least 10 digits"
+                                userAddressViewHolder.binding.textInputLayout.error = "Phone number must be at least 10 digits"
                             } else if (s.length > 10) {
-                                userAddressViewHolder.binding.textInputEdittext.error = "Phone number cannot be more than 10 digits"
+                                userAddressViewHolder.binding.textInputLayout.error = "Phone number cannot be more than 10 digits"
                             } else {
+                                fillFormViewModel.isSubmitEnable.value = checkIfAllFieldsFilled()
                                 userAddressViewHolder.binding.textInputEdittext.error = null
+                                userAddressViewHolder.binding.textInputLayout.error = null
                             }
                         }
                     })
@@ -153,14 +161,15 @@ class UserDetailAdapter(
 
                         override fun afterTextChanged(s: Editable?) {
                             userMobileList[position-3]?.mobileNo = s.toString()
-                            fillFormViewModel.isSubmitEnable.value = checkIfAllFieldsFilled()
                             if (s.isNullOrEmpty()) {
-                                userAddressViewHolder.binding.textInputEdittext.error = "Phone number is required"
+                                userAddressViewHolder.binding.textInputLayout.error = "Phone number is required"
                             } else if (s.length < 10) {
-                                userAddressViewHolder.binding.textInputEdittext.error = "Phone number must be at least 10 digits"
+                                userAddressViewHolder.binding.textInputLayout.error = "Phone number must be at least 10 digits"
                             } else if (s.length > 10) {
-                                userAddressViewHolder.binding.textInputEdittext.error = "Phone number cannot be more than 10 digits"
+                                userAddressViewHolder.binding.textInputLayout.error = "Phone number cannot be more than 10 digits"
                             } else {
+                                fillFormViewModel.isSubmitEnable.value = checkIfAllFieldsFilled()
+                                userAddressViewHolder.binding.textInputLayout.error = null
                                 userAddressViewHolder.binding.textInputEdittext.error = null
                             }
                         }
@@ -195,7 +204,12 @@ class UserDetailAdapter(
 
 
                 }
-
+                userAddressViewHolder.binding.textInputEdittext.onFocusChangeListener = View.OnFocusChangeListener { _, hasFocus ->
+                    if (hasFocus) {
+                        userAddressViewHolder.binding.textInputLayout.error = null
+                        userAddressViewHolder.binding.textInputEdittext.requestFocus()
+                    }
+                }
             }else{
                 val addMoreViewHolder: AddMoreViewHolder = holder as AddMoreViewHolder
                 addMoreViewHolder.binding.addMore = "Add more mobile no."
@@ -227,7 +241,9 @@ class UserDetailAdapter(
           return false
       }
       for (mobileNo in userMobileList) {
-          if (mobileNo.mobileNo.isNullOrEmpty()) {
+          if (mobileNo.mobileNo.isNullOrEmpty() ) {
+              return false
+          }else if(mobileNo.mobileNo!!.length < 10  ||  mobileNo.mobileNo!!.length > 10){
               return false
           }
       }

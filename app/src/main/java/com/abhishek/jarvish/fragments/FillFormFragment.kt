@@ -119,19 +119,19 @@ class FillFormFragment : Fragment(), DeleteTablesDataInterface {
             if (viewHolder is UserAddressAdapter.UserAddressViewHolder) {
                 val userAddressViewHolder = viewHolder as UserAddressAdapter.UserAddressViewHolder
                 if (userAddressViewHolder.binding.etHouseNo.textInputEdittext.text.toString().isEmpty()) {
-                    userAddressViewHolder.binding.etHouseNo.textInputEdittext.error = "Please enter a valid data"
+                    userAddressViewHolder.binding.etHouseNo.textInputLayout.error = "Please enter a valid data"
                 }
                 if (userAddressViewHolder.binding.etArea.textInputEdittext.text.toString().isEmpty()) {
-                    userAddressViewHolder.binding.etArea.textInputEdittext.error = "Please enter a valid data"
+                    userAddressViewHolder.binding.etArea.textInputLayout.error = "Please enter a valid data"
                 }
                 if (userAddressViewHolder.binding.etPinCode.textInputEdittext.text.toString().isEmpty()) {
-                    userAddressViewHolder.binding.etPinCode.textInputEdittext.error = "Please enter a valid data"
+                    userAddressViewHolder.binding.etPinCode.textInputLayout.error = "Please enter a valid data"
                 }
                 if (userAddressViewHolder.binding.etCity.textInputEdittext.text.toString().isEmpty()) {
-                    userAddressViewHolder.binding.etCity.textInputEdittext.error = "Please enter a valid data"
+                    userAddressViewHolder.binding.etCity.textInputLayout.error = "Please enter a valid data"
                 }
                 if (userAddressViewHolder.binding.etState.textInputEdittext.text.toString().isEmpty()) {
-                    userAddressViewHolder.binding.etState.textInputEdittext.error = "Please enter a valid data"
+                    userAddressViewHolder.binding.etState.textInputLayout.error = "Please enter a valid data"
                 }
 
             }
@@ -144,7 +144,7 @@ class FillFormFragment : Fragment(), DeleteTablesDataInterface {
                 if (viewHolder is UserDetailAdapter.UserDetailViewHolder) {
                     val userAddressViewHolder = viewHolder as UserDetailAdapter.UserDetailViewHolder
                     if (userAddressViewHolder.binding.textInputEdittext.text.toString().isEmpty()) {
-                        userAddressViewHolder.binding.textInputEdittext.error = "Please enter a valid data"
+                        userAddressViewHolder.binding.textInputLayout.error = "Please enter a valid data"
                     }
                 }
             }
@@ -156,29 +156,29 @@ class FillFormFragment : Fragment(), DeleteTablesDataInterface {
             if (viewHolder is UserEducationAdapter.UserEducationViewHolder) {
                 val userAddressViewHolder = viewHolder as UserEducationAdapter.UserEducationViewHolder
                 if (userAddressViewHolder.binding.etLevel.textInputEdittext.text.toString().isEmpty()) {
-                    userAddressViewHolder.binding.etLevel.textInputEdittext.error = "Please enter a valid data"
+                    userAddressViewHolder.binding.etLevel.textInputLayout.error = "Please enter a valid data"
                 }else{
-                    userAddressViewHolder.binding.etLevel.textInputEdittext.error = null
+                    userAddressViewHolder.binding.etLevel.textInputLayout.error = null
                 }
                 if (userAddressViewHolder.binding.etStream.textInputEdittext.text.toString().isEmpty()) {
-                    userAddressViewHolder.binding.etStream.textInputEdittext.error = "Please enter a valid data"
+                    userAddressViewHolder.binding.etStream.textInputLayout.error = "Please enter a valid data"
                 }else{
-                    userAddressViewHolder.binding.etStream.textInputEdittext.error = null
+                    userAddressViewHolder.binding.etStream.textInputLayout.error = null
                 }
                 if (userAddressViewHolder.binding.etStartYear.textInputEdittext.text.toString().isEmpty()) {
-                    userAddressViewHolder.binding.etStartYear.textInputEdittext.error = "Please enter a valid data"
+                    userAddressViewHolder.binding.etStartYear.textInputLayout.error = "Please enter a valid data"
                 }else{
-                    userAddressViewHolder.binding.etStartYear.textInputEdittext.error = null
+                    userAddressViewHolder.binding.etStartYear.textInputLayout.error = null
                 }
                 if (userAddressViewHolder.binding.etEndYear.textInputEdittext.text.toString().isEmpty()) {
-                    userAddressViewHolder.binding.etEndYear.textInputEdittext.error = "Please enter a valid data"
+                    userAddressViewHolder.binding.etEndYear.textInputLayout.error = "Please enter a valid data"
                 }else{
-                    userAddressViewHolder.binding.etEndYear.textInputEdittext.error = null
+                    userAddressViewHolder.binding.etEndYear.textInputLayout.error = null
                 }
                 if (userAddressViewHolder.binding.etCollege.textInputEdittext.text.toString().isEmpty()) {
-                    userAddressViewHolder.binding.etCollege.textInputEdittext.error = "Please enter a valid data"
+                    userAddressViewHolder.binding.etCollege.textInputLayout.error = "Please enter a valid data"
                 }else{
-                    userAddressViewHolder.binding.etCollege.textInputEdittext.error = null
+                    userAddressViewHolder.binding.etCollege.textInputLayout.error = null
                 }
             }
         }
