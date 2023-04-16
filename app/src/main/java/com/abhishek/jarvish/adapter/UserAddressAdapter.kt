@@ -61,8 +61,11 @@ class UserAddressAdapter(
                         null
                     )*/
                     userAddressViewHolder.binding.ivDelete.setOnClickListener {
-                        userAddressList.removeAt(position)
-                        notifyItemRemoved(position)
+                        if (userAddressList.size > 1 && position > 0) {
+                            userAddressList.removeAt(position - 1)
+                            notifyItemRemoved(position)
+                            notifyItemRangeChanged(position, userAddressList.size - position)
+                        }
                     }
 
                 }else{
@@ -70,31 +73,50 @@ class UserAddressAdapter(
                 }
 
                 userAddressViewHolder.binding.etHouseNo.textInputLayout.hint = "House no, flat, building, apartment"
-                userAddressViewHolder.binding.etHouseNo.textInputEdittext.hint = "Enter your address"
+                if(!userAddressList[position].houseNo.isNullOrEmpty()){
+                    userAddressViewHolder.binding.etHouseNo.textInputEdittext.setText(userAddressList[position].houseNo)
+                } else{
+                    userAddressViewHolder.binding.etHouseNo.textInputEdittext.hint = "Enter your address"
+                }
                 userAddressViewHolder.binding.etArea.textInputLayout.hint = "Area, street, sector, village"
-                userAddressViewHolder.binding.etArea.textInputEdittext.hint = "Enter your address"
+                if(!userAddressList[position].area.isNullOrEmpty()){
+                    userAddressViewHolder.binding.etArea.textInputEdittext.setText(userAddressList[position].area)
+                } else{
+                    userAddressViewHolder.binding.etArea.textInputEdittext.hint = "Enter your address"
+                }
                 userAddressViewHolder.binding.etPinCode.textInputLayout.hint = "Pin code"
-                userAddressViewHolder.binding.etPinCode.textInputEdittext.hint = "Enter your pin code"
                 userAddressViewHolder.binding.etPinCode.textInputEdittext.inputType = InputType.TYPE_CLASS_NUMBER
+                if((userAddressList[position].pinCode ?: 0) > 0){
+                    userAddressViewHolder.binding.etPinCode.textInputEdittext.setText(userAddressList[position].pinCode.toString())
+                } else{
+                    userAddressViewHolder.binding.etPinCode.textInputEdittext.hint = "Enter your pin code"
+                }
                 userAddressViewHolder.binding.etCity.textInputLayout.hint = "Town/City"
-                userAddressViewHolder.binding.etCity.textInputEdittext.hint = "Enter your town"
+                if(!userAddressList[position].houseNo.isNullOrEmpty()){
+                    userAddressViewHolder.binding.etCity.textInputEdittext.setText(userAddressList[position].city)
+                } else{
+                    userAddressViewHolder.binding.etCity.textInputEdittext.hint = "Enter your town"
+                }
                 userAddressViewHolder.binding.etState.textInputLayout.hint = "State"
-                userAddressViewHolder.binding.etState.textInputEdittext.hint = "Enter your state"
-
+                if(!userAddressList[position].houseNo.isNullOrEmpty()){
+                    userAddressViewHolder.binding.etState.textInputEdittext.setText(userAddressList[position].state)
+                } else{
+                    userAddressViewHolder.binding.etState.textInputEdittext.hint = "Enter your state"
+                }
                 userAddressViewHolder.binding.etHouseNo.textInputEdittext.addTextChangedListener {s ->
-                    fillFormViewModel.addressList.value?.get(position)?.houseNo = s.toString()
+                    userAddressList[position].houseNo = s.toString()
                 }
                 userAddressViewHolder.binding.etArea.textInputEdittext.addTextChangedListener { s ->
-                    fillFormViewModel.addressList.value?.get(position)?.area = s.toString()
+                    userAddressList[position].area = s.toString()
                 }
                 userAddressViewHolder.binding.etPinCode.textInputEdittext.addTextChangedListener {s ->
-                    fillFormViewModel.addressList.value?.get(position)?.pinCode = s.toString().toInt()
+                    userAddressList[position].pinCode = s.toString().toInt()
                 }
                 userAddressViewHolder.binding.etCity.textInputEdittext.addTextChangedListener {s ->
-                    fillFormViewModel.addressList.value?.get(position)?.city = s.toString()
+                    userAddressList[position].city = s.toString()
                 }
                 userAddressViewHolder.binding.etState.textInputEdittext.addTextChangedListener {s ->
-                    fillFormViewModel.addressList.value?.get(position)?.state = s.toString()
+                    userAddressList[position].state = s.toString()
                 }
 
             } else {
@@ -102,9 +124,9 @@ class UserAddressAdapter(
                     holder as UserAddressAdapter.AddMoreViewHolder
                 addMoreViewHolder.binding.addMore = "Add more address"
                 addMoreViewHolder.binding.llAddMore.setOnClickListener {
-                    userAddressList.add(Address(UUID.randomUUID().toString(), "", "", 201305, "noida", "Up",UUID.randomUUID().toString()))
+                    userAddressList.add(Address(UUID.randomUUID().toString(), "", "", 0, "", "",UUID.randomUUID().toString()))
                     notifyItemInserted(userAddressList.size)
-                }
+                                }
             }
         }
     }

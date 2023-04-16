@@ -5,6 +5,7 @@ import android.app.Activity
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.graphics.Bitmap
+import android.graphics.BitmapFactory
 import android.net.Uri
 import android.os.Bundle
 import android.provider.MediaStore
@@ -25,6 +26,10 @@ import androidx.navigation.fragment.findNavController
 import com.abhishek.jarvish.R
 import com.abhishek.jarvish.databinding.FragmentFillFormBinding
 import com.abhishek.jarvish.db.UserDetailViewModel
+import com.abhishek.jarvish.db.table.Address
+import com.abhishek.jarvish.db.table.Education
+import com.abhishek.jarvish.db.table.MobileNo
+import com.abhishek.jarvish.db.table.UserDetailWithRelations
 import com.abhishek.jarvish.utils.ImageBitmapString
 import com.abhishek.jarvish.utils.Utility
 import com.abhishek.jarvish.viewholder.FillFormViewModel
@@ -45,7 +50,6 @@ class FillFormFragment : Fragment() {
     ): View? {
         _binding =
             DataBindingUtil.inflate(layoutInflater, R.layout.fragment_fill_form, container, false)
-        //_binding = FragmentFillFormBinding.inflate(inflater, container, false)
         return binding.root
 
     }
@@ -56,7 +60,21 @@ class FillFormFragment : Fragment() {
         binding.lifecycleOwner = this
         binding.viewModel = this.fillFormViewModel
         binding.fragment = this
-        fillFormViewModel.addMobileData()
+        if (arguments != null) {
+            var user=arguments?.getParcelable<UserDetailWithRelations>("userData")
+            fillFormViewModel.user.value =user?.userDetail
+            fillFormViewModel.mobileNoList.value = user?.mobileNumbers as ArrayList<MobileNo>?
+            fillFormViewModel.addressList.value = user?.addresses as ArrayList<Address>?
+            fillFormViewModel.educationList.value = user?.educations as ArrayList<Education>?
+            fillFormViewModel.userDetail.value =user
+            if(!user?.userDetail?.profileImage.isNullOrEmpty()) {
+                val bitmap = BitmapFactory.decodeFile(user?.userDetail?.profileImage)
+                binding.ivUpload.setImageBitmap(bitmap)
+            }
+            fillFormViewModel.isSubmitEnable.value = true
+        } else {
+            fillFormViewModel.addMobileData()
+        }
         binding.executePendingBindings()
 
 
@@ -74,10 +92,12 @@ class FillFormFragment : Fragment() {
     }
 
     fun saveData() {
-        userDetailSharedViewModel.insertData(requireContext(),fillFormViewModel.getUserData().value!!)
-//binding.buttonFirst.setOnClickListener {
-        //  findNavController().navigate(R.id.action_FirstFragment_to_SecondFragment)
-        //  }
+        if(arguments!=null){
+            userDetailSharedViewModel.updateData(requireContext(),fillFormViewModel.getUserData().value?.userDetail?.userId,fillFormViewModel.getUserData().value!!)
+        }
+        else{
+            userDetailSharedViewModel.insertData(requireContext(),fillFormViewModel.getUserData().value!!)
+        }
         findNavController().navigate(R.id.action_FirstFragment_to_SecondFragment)
     }
 
@@ -99,32 +119,7 @@ class FillFormFragment : Fragment() {
         takeGalleryForResult.launch(i)
     }
 
-
-    private val loadImageFromGallery =
-        registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result: ActivityResult ->
-            if (result.resultCode == Activity.RESULT_OK) {
-                try {
-                    val uri: Uri? = result.data!!.data
-                    uri?.let {
-                        /*val file = File(BraveFilePath.getRealPathFromURI(context!!, it))
-                        if(!Utility.isFileLessThan15MB(file)){
-                            val mimeType: String? = Utility.getMimeType(uri?.let { BraveFilePath.getRealPathFromURI(context!!, it) }!!)
-                            if (mimeType != null && (mimeType == "image/jpeg" || mimeType == "image/png" || mimeType == "image/jpg")) {
-                              //  prescriptionListGallery.put(BraveFilePath.getRealPathFromURI(context!!, uri)!!, mimeType)
-                               // setGalleryAdapter()
-                            }
-                        }else{
-                            Utility.showSnackBar(binding!!.root, "Size cannot exceed 15 MB")
-                        }*/
-
-                    }
-                } catch (e: Exception) {
-                    e.printStackTrace()
-                }
-            }
-        }
-
-    var takeGalleryForResult = registerForActivityResult<Intent, ActivityResult>(
+   private var takeGalleryForResult = registerForActivityResult<Intent, ActivityResult>(
         ActivityResultContracts.StartActivityForResult()
     ) { result: ActivityResult ->
         if (result.resultCode == Activity.RESULT_OK) {

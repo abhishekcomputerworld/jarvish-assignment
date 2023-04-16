@@ -31,6 +31,13 @@ class Repository {
             users = appDatabase!!.userDetailDao().getAllUserDetailsWithRelations()
             return users
         }
+
+        fun updateUserList(requireContext: Context, userId: String?, userDetailTable: UserDetailWithRelations){
+            appDatabase = initializeDB(requireContext)
+            CoroutineScope(Dispatchers.IO).launch {
+                appDatabase!!.userDetailDao().updateUserDetailWithRelations(userDetailTable.userDetail,userDetailTable.mobileNumbers,userDetailTable.addresses,userDetailTable.educations)
+            }
+        }
     }
 
 

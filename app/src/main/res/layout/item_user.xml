@@ -11,6 +11,7 @@
             name="ImageBitmapString"
             type="com.abhishek.jarvish.utils.ImageBitmapString" />
 
+
     </data>
 
     <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
@@ -107,7 +108,6 @@
                     android:layout_marginStart="@dimen/_12sdp"
                     android:layout_toEndOf="@id/iv_address"
                     android:fontFamily="@font/lato_bold"
-                    android:text="@{String.valueOf(User.addresses.get(0).houseNo) +  ', ' + String.valueOf(User.addresses.get(0).area) + ', ' + String.valueOf(User.addresses.get(0).city) + ', ' + String.valueOf(User.addresses.get(0).state) + ', ' + String.valueOf(User.addresses.get(0).pinCode)}"
                     android:textColor="@color/black"
                     android:textSize="@dimen/_13sdp" />
             </RelativeLayout>
@@ -158,8 +158,8 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="@dimen/_2sdp"
-                        android:text="@{String.valueOf(User.educations.get(0).startYear) + ' ' + String.valueOf(User.educations.get(0).endYear)}"
                         android:fontFamily="@font/lato"
+
                         android:textColor="#6B6868"
                         android:textSize="@dimen/_13sdp" />
 

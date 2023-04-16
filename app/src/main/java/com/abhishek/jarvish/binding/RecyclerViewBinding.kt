@@ -46,12 +46,13 @@ object  RecyclerViewBinding {
     }
 
     @JvmStatic
-    @BindingAdapter("Context", "UserList")
+    @BindingAdapter("Context","EditClickInterface", "UserList")
     fun setUserListRecyclerView(
-        recyclerView: RecyclerView, context: Context, userList: ArrayList<UserDetailWithRelations>?
+        recyclerView: RecyclerView, context: Context, userEditClickInterface : UserListAdapter.UserEditClick,
+        userList: ArrayList<UserDetailWithRelations>?
     ) {
         if (userList != null) {
-            recyclerView.adapter = UserListAdapter(context, userList)
+            recyclerView.adapter = UserListAdapter(context, userEditClickInterface,userList)
         }
     }
 }

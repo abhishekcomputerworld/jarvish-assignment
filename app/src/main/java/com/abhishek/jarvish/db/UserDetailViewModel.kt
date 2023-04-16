@@ -19,4 +19,8 @@ class UserDetailViewModel : ViewModel() {
         return userList
     }
 
+    fun updateData(requireContext: Context, userId: String?, value: UserDetailWithRelations) {
+        Repository.updateUserList(requireContext,userId,value)
+    }
+
 }

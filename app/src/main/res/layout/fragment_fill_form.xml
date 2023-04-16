@@ -76,8 +76,8 @@
 
                     <ImageView
                         android:id="@+id/iv_upload"
-                        android:layout_width="@dimen/_125sdp"
-                        android:layout_height="@dimen/_125sdp"
+                        android:layout_width="@dimen/_115sdp"
+                        android:layout_height="@dimen/_115sdp"
                         android:background="@drawable/bg_upload"
                         android:padding="@dimen/_16sdp"
                         android:scaleType="fitCenter"
