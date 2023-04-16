@@ -26,6 +26,7 @@ interface UserDetailDao {
         educations.forEach { education -> insertEducation(education.apply { userId = userDetail.userId }) }
     }
 
+    // Retrieval methods
     @Query("SELECT * FROM user_detail_table")
     fun getAllUserDetails(): LiveData<List<UserDetailTable>>
 
@@ -47,5 +48,13 @@ interface UserDetailDao {
     @Query("SELECT * FROM user_detail_table")
     fun getAllUserDetailsWithRelations(): LiveData<List<UserDetailWithRelations>>
 
+    // Update method
+    @Transaction
+    suspend fun updateUserDetailWithRelations(userDetail: UserDetailTable, mobileNumbers: List<MobileNo>, addresses: List<Address>, educations: List<Education>) {
+        insertUserDetail(userDetail)
+        mobileNumbers.forEach { mobileNo -> insertMobileNo(mobileNo.apply { userId = userDetail.userId }) }
+        addresses.forEach { address -> insertAddress(address.apply { userId = userDetail.userId }) }
+        educations.forEach { education -> insertEducation(education.apply { userId = userDetail.userId }) }
+    }
 
 }
