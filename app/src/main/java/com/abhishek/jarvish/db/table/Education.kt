@@ -1,14 +1,17 @@
 package com.abhishek.jarvish.db.table
 
+import android.os.Parcelable
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
+import kotlinx.parcelize.Parcelize
 
+@Parcelize
 @Entity(tableName = "education")
 data class Education(
-    @PrimaryKey(autoGenerate = true)
-    @ColumnInfo(name = "id")
-    var id: Int?,
+    @PrimaryKey
+    @ColumnInfo(name = "education_id")
+    var educationId: String,
 
     @ColumnInfo(name = "level")
     var level: String?,
@@ -17,11 +20,15 @@ data class Education(
     var stream: String?,
 
     @ColumnInfo(name = "start_year")
-    var start_year: Int?,
+    var startYear: Int?,
 
     @ColumnInfo(name = "end_year")
-    var end_year: Int?,
+    var endYear: Int?,
 
     @ColumnInfo(name = "college_name")
-    var College: String?
-)
+    var college: String?,
+
+    @ColumnInfo(name = "user_id")
+    var userId: String?
+) : Parcelable {
+}

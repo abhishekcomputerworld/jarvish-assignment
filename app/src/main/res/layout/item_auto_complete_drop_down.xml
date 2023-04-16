@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
         <!--
@@ -8,35 +9,33 @@
                     type="com.tagtool.tubebuddypro.model.competitor.CompetitorVideoItem" />-->
     </data>
 
-    <com.google.android.material.textfield.TextInputLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
+    <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/text_input_layout"
-        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginBottom="@dimen/_12sdp"
-        android:hint=""
         android:textSize="@dimen/_11sdp"
         app:boxBackgroundColor="@color/white"
         app:boxBackgroundMode="outline"
-        app:boxStrokeWidthFocused="@dimen/_1sdp"
-        app:boxStrokeColor="@color/my_outline_color"
-        app:boxStrokeWidth="@dimen/_1sdp"
         app:boxCornerRadiusBottomEnd="@dimen/_12sdp"
         app:boxCornerRadiusTopEnd="@dimen/_12sdp"
         app:boxCornerRadiusBottomStart="@dimen/_12sdp"
         app:boxCornerRadiusTopStart="@dimen/_12sdp"
+        app:boxStrokeColor="@color/my_outline_color"
+        app:boxStrokeWidth="@dimen/_1sdp"
         app:expandedHintEnabled="false"
-        app:hintEnabled="true"
         app:hintTextColor="@color/my_hint_color">
 
-        <com.google.android.material.textfield.TextInputEditText
+
+        <AutoCompleteTextView
             android:id="@+id/text_input_edittext"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:fontFamily="@font/lato"
             android:hint=""
-            android:inputType="text"
+            android:imeOptions="actionDone"
+            android:inputType="none"
             android:maxLines="1"
             android:text=""
             android:textColorHint="#D3D3D3"

@@ -1,157 +1,188 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:background="#F7F7F7"
-    android:layout_marginBottom="@dimen/_12sdp"
-    android:elevation="0dp"
-    app:cardElevation="4dp"
-    app:cardCornerRadius="@dimen/_12sdp">
+<layout>
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <data>
+
+        <variable
+            name="User"
+            type="com.abhishek.jarvish.db.table.UserDetailWithRelations" />
+
+        <variable
+            name="ImageBitmapString"
+            type="com.abhishek.jarvish.utils.ImageBitmapString" />
+
+
+    </data>
+
+    <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="@dimen/_12sdp">
+        android:layout_marginBottom="@dimen/_12sdp"
+        android:backgroundTint="#F7F7F7"
+        android:elevation="10dp"
+        app:cardCornerRadius="@dimen/_12sdp"
+        app:cardElevation="0dp">
 
-        <RelativeLayout
-            android:id="@+id/rl_user_profile"
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:layout_constraintBottom_toTopOf="@+id/rl_address"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
+            android:padding="@dimen/_12sdp">
 
-            <ImageView
-                android:id="@+id/ic_profile_image"
-                android:layout_width="@dimen/_45sdp"
-                android:layout_height="@dimen/_45sdp"
-                android:src="@drawable/profile_icon" />
-
-            <LinearLayout
-                android:layout_width="wrap_content"
+            <RelativeLayout
+                android:id="@+id/rl_user_profile"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/_12sdp"
-                android:layout_toEndOf="@+id/ic_profile_image"
-                android:orientation="vertical">
+                app:layout_constraintBottom_toTopOf="@+id/rl_address"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+                <!--
+                                <ImageView
+                                    android:id="@+id/ic_profile_image"
+                                    android:layout_width="@dimen/_45sdp"
+                                    android:layout_height="@dimen/_45sdp"
+                                    app:srcCompatCustom="@{ImageBitmapString.stringToBitMap(User.userDetail.profileImage)}" />-->
+                <ImageView
+                    android:id="@+id/ic_profile_image"
+                    android:layout_width="@dimen/_45sdp"
+                    android:layout_height="@dimen/_45sdp"
+                    app:imageUrl="@{User.userDetail.profileImage}" />
 
-                <TextView
-                    android:id="@+id/fon"
+                <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/_12sdp"
+                    android:layout_toEndOf="@+id/ic_profile_image"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/lato_bold"
+                        android:text="@{User.userDetail.firstName}"
+                        android:textAlignment="center"
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/_13sdp" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/_3sdp"
+                        android:fontFamily="@font/lato"
+                        android:text="@{User.mobileNumbers.get(0).mobileNo}"
+                        android:textAlignment="center"
+                        android:textColor="#888888"
+                        android:textSize="@dimen/_12sdp" />
+
+                </LinearLayout>
+
+                <ImageView
+                    android:id="@+id/iv_edit"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
+                    android:paddingStart="@dimen/_12sdp"
+                    android:paddingEnd="@dimen/_12sdp"
+                    android:paddingBottom="@dimen/_12sdp"
+                    android:src="@drawable/ic_edit" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/rl_address"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_12sdp"
+                app:layout_constraintBottom_toTopOf="@+id/view"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/rl_user_profile">
+
+                <ImageView
+                    android:id="@+id/iv_address"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/ic_address" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/_12sdp"
+                    android:layout_toEndOf="@id/iv_address"
+                    android:maxLines="2"
+                    android:ellipsize="end"
                     android:fontFamily="@font/lato_bold"
-                    android:text="Ronald Richards"
-                    android:textAlignment="center"
+                    android:text="@{User.addresses.size() > 0 ? (User.addresses.get(0).houseNo != null &amp;&amp; !User.addresses.get(0).houseNo.isEmpty() ? User.addresses.get(0).houseNo + `, ` : ``) + (User.addresses.get(0).area != null &amp;&amp; !User.addresses.get(0).area.isEmpty() ? User.addresses.get(0).area + `, ` : ``) + (User.addresses.get(0).city != null &amp;&amp; !User.addresses.get(0).city.isEmpty() ? User.addresses.get(0).city + `, ` : ``) + (User.addresses.get(0).state != null &amp;&amp; !User.addresses.get(0).state.isEmpty() ? User.addresses.get(0).state + `, ` : ``) + (User.addresses.get(0).pinCode != null &amp;&amp; User.addresses.get(0).pinCode > 0 ? User.addresses.get(0).pinCode : ``) : ``}"
                     android:textColor="@color/black"
                     android:textSize="@dimen/_13sdp" />
+            </RelativeLayout>
 
-                <TextView
+            <View
+                android:id="@+id/view"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginTop="@dimen/_12sdp"
+                android:layout_marginBottom="@dimen/_12sdp"
+                android:background="@drawable/bg_divider"
+                app:layout_constraintBottom_toTopOf="@+id/relativeLayout"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/rl_address" />
+
+            <RelativeLayout
+                android:id="@+id/relativeLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/view">
+
+                <ImageView
+                    android:id="@+id/iv_education"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:fontFamily="@font/lato"
-                    android:text="8663528473"
-                    android:layout_marginTop="@dimen/_3sdp"
-                    android:textAlignment="center"
-                    android:textColor="#888888"
-                    android:textSize="@dimen/_12sdp" />
+                    android:src="@drawable/ic_education" />
 
-            </LinearLayout>
-
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentEnd="true"
-                android:src="@drawable/ic_edit" />
-        </RelativeLayout>
-
-        <RelativeLayout
-            android:id="@+id/rl_address"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/_12sdp"
-            app:layout_constraintBottom_toTopOf="@+id/view"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/rl_user_profile">
-
-            <ImageView
-                android:id="@+id/iv_address"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@drawable/ic_address" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/_12sdp"
-                android:layout_toEndOf="@id/iv_address"
-                android:fontFamily="@font/lato_bold"
-                android:text="2972 Westheimer Rd. Santa Ana, Illinois 85486 "
-                android:textColor="@color/black"
-                android:textSize="@dimen/_13sdp" />
-        </RelativeLayout>
-
-        <View
-            android:id="@+id/view"
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:layout_marginTop="@dimen/_12sdp"
-            android:layout_marginBottom="@dimen/_12sdp"
-            android:background="@drawable/bg_divider"
-            app:layout_constraintBottom_toTopOf="@+id/relativeLayout"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/rl_address" />
-
-        <RelativeLayout
-            android:id="@+id/relativeLayout"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/view">
-
-            <ImageView
-                android:id="@+id/iv_education"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@drawable/ic_education" />
-
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/_12sdp"
-                android:layout_toEndOf="@id/iv_education"
-                android:orientation="vertical">
-
-                <TextView
+                <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:fontFamily="@font/lato_black"
-                    android:text="Graduation"
-                    android:textColor="@color/black"
-                    android:textSize="@dimen/_13sdp" />
+                    android:layout_marginStart="@dimen/_12sdp"
+                    android:layout_toEndOf="@id/iv_education"
+                    android:orientation="vertical">
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:fontFamily="@font/lato"
-                    android:text="2018-2021"
-                    android:layout_marginTop="@dimen/_2sdp"
-                    android:textColor="#6B6868"
-                    android:textSize="@dimen/_13sdp" />
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/lato_black"
+                        android:maxLines="1"
+                        android:text="@{User.educations.get(0).level}"
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/_13sdp" />
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:fontFamily="@font/lato"
-                    android:layout_marginTop="@dimen/_2sdp"
-                    android:text="Acharya Narendra Dev College, Delhi"
-                    android:textColor="#342E2E"
-                    android:textSize="@dimen/_13sdp" />
-            </LinearLayout>
-        </RelativeLayout>
-    </androidx.constraintlayout.widget.ConstraintLayout>
-</androidx.cardview.widget.CardView>
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:maxLines="1"
+                        android:layout_marginTop="@dimen/_2sdp"
+                        android:fontFamily="@font/lato"
+                        android:text="@{User.educations.size() > 0 ? (User.educations.get(0).startYear > 0 &amp;&amp; User.educations.get(0).endYear > 0  ? String.valueOf(User.educations.get(0).startYear) + ` - ` + String.valueOf(User.educations.get(0).endYear) : `N/A`) : `N/A`}"
+                        android:textColor="#6B6868"
+                        android:textSize="@dimen/_13sdp" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/_2sdp"
+                        android:maxLines="1"
+                        android:ellipsize="end"
+                        android:fontFamily="@font/lato"
+                        android:text="@{User.educations.get(0).college}"
+                        android:textColor="#342E2E"
+                        android:textSize="@dimen/_13sdp" />
+                </LinearLayout>
+            </RelativeLayout>
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.cardview.widget.CardView>
+
+</layout>

@@ -8,6 +8,6 @@
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
     <color name="grey">#F7F7F7</color>
-    <color name="my_hint_color">#D3D3D3</color>
-    <color name="my_outline_color">#2C2B2A</color>
+    <color name="my_hint_color">#49454F</color>
+    <color name="my_outline_color">#49454F</color>
 </resources>

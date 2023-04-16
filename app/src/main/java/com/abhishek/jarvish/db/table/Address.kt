@@ -1,21 +1,34 @@
 package com.abhishek.jarvish.db.table
 
+import android.os.Parcelable
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
+import kotlinx.parcelize.Parcelize
 
-@Entity(tableName = "addresses")
+@Parcelize
+@Entity(tableName = "address")
 data class Address(
-    @PrimaryKey(autoGenerate = true)
-    val id: Int = 0,
+    @PrimaryKey
+    @ColumnInfo(name = "address_id")
+    var addressId: String,
+
     @ColumnInfo(name = "house_no")
-    val userId: Int,
+    var houseNo: String?,
+
     @ColumnInfo(name = "area")
-    val address: String,
+    var area: String?,
+
     @ColumnInfo(name = "pin_code")
-    val pinCode: String,
+    var pinCode: Int?,
+
     @ColumnInfo(name = "city")
-    val city: String,
+    var city: String?,
+
     @ColumnInfo(name = "state")
-    val state: String
-)
+    var state: String?,
+
+    @ColumnInfo(name = "user_id")
+    var userId: String?
+) : Parcelable {
+}

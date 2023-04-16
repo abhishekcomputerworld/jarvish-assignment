@@ -1,231 +1,228 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="#F5F5F5"
-    tools:context=".fragments.FillFormFragment">
+<layout>
+
+    <data>
+
+        <variable
+            name="fragment"
+            type="com.abhishek.jarvish.fragments.FillFormFragment" />
+        <variable
+            name="DeleteTableInterface"
+            type="com.abhishek.jarvish.interfaces.DeleteTablesDataInterface" />
+
+        <variable
+            name="ViewModel"
+            type="com.abhishek.jarvish.viewholder.FillFormViewModel" />
+
+        <import type="android.view.View" />
+
+        <import type="android.content.Context" />
+    </data>
 
 
-    <LinearLayout
-        android:id="@+id/ll_fill_form_toolbar"
+    <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center_vertical"
-        android:padding="@dimen/_12sdp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        android:layout_height="match_parent"
+        android:background="#F5F5F5"
+        tools:context=".fragments.FillFormFragment">
 
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/ic_next" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/_12sdp"
-            android:fontFamily="@font/lato_black"
-            android:text="Fill form"
-            android:textColor="@color/black"
-            android:textSize="@dimen/_15sdp" />
-    </LinearLayout>
-
-
-    <androidx.core.widget.NestedScrollView
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/ll_fill_form_toolbar">
 
         <LinearLayout
+            android:id="@+id/ll_fill_form_toolbar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:paddingTop="@dimen/_10sdp"
+            android:gravity="center_vertical"
+            android:padding="@dimen/_12sdp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
 
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:id="@+id/constraintLayout"
-                android:layout_width="match_parent"
+            <ImageView
+                android:id="@+id/iv_next"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:paddingBottom="@dimen/_12sdp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent">
+                android:onClick="@{() -> fragment.closeActivity()}"
+                android:src="@drawable/ic_next" />
 
-
-                <ImageView
-                    android:id="@+id/iv_upload"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:background="@drawable/bg_upload"
-                    android:padding="@dimen/_16sdp"
-                    android:src="@drawable/ic_upload_icon"
-                    app:layout_constraintBottom_toTopOf="@+id/ll_fill_form"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
-
-                <LinearLayout
-                    android:id="@+id/ll_fill_form"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="@dimen/_12sdp"
-                    android:gravity="center"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/iv_upload">
-
-                    <ImageView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:src="@drawable/ic_camera" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="@dimen/_8sdp"
-                        android:fontFamily="@font/lato_bold"
-                        android:text="Upload photo"
-                        android:textColor="#4686E6"
-                        android:textSize="@dimen/_15sdp" />
-                </LinearLayout>
-            </androidx.constraintlayout.widget.ConstraintLayout>
-
-            <RelativeLayout
-                android:layout_width="match_parent"
+            <TextView
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:background="@color/white"
-                android:padding="@dimen/_12sdp">
-
-                <TextView
-                    android:id="@+id/tv_personal_detail"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="@dimen/_12sdp"
-                    android:fontFamily="@font/lato_bold"
-                    android:text="Personal Details"
-                    android:textColor="#0D0D0D"
-                    android:textSize="@dimen/_14sdp" />
-
-                <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/rv_user_detail"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@+id/tv_personal_detail"
-                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-                    tools:itemCount="5"
-                    tools:listitem="@layout/item_edit_field" />
-
-                <include
-                    android:id="@+id/add_more_mobile_no"
-                    layout="@layout/layout_add_more"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@+id/rv_user_detail"
-                    android:layout_alignParentEnd="true"
-                    android:layout_alignParentBottom="true"
-                    android:layout_gravity="bottom"
-                    android:layout_marginTop="@dimen/_12sdp" />
-            </RelativeLayout>
-
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@color/white"
-                android:layout_marginTop="@dimen/_24sdp"
-                android:padding="@dimen/_12sdp">
-
-                <TextView
-                    android:id="@+id/tv_address"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="@dimen/_12sdp"
-                    android:fontFamily="@font/lato_bold"
-                    android:text="Address"
-                    android:textColor="#0D0D0D"
-                    android:textSize="@dimen/_14sdp" />
-
-                <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/rv_address"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@+id/tv_address"
-                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-                    tools:itemCount="5"
-                    tools:listitem="@layout/item_edit_field" />
-
-                <include
-                    android:id="@+id/add_more_address"
-                    layout="@layout/layout_add_more"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@+id/rv_address"
-                    android:layout_alignParentEnd="true"
-                    android:layout_alignParentBottom="true"
-                    android:layout_gravity="bottom"
-                    android:layout_marginTop="@dimen/_12sdp" />
-            </RelativeLayout>
-
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_marginTop="@dimen/_24sdp"
-                android:layout_height="wrap_content"
-                android:background="@color/white"
-                android:padding="@dimen/_12sdp">
-
-                <TextView
-                    android:id="@+id/tv_education"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="@dimen/_12sdp"
-                    android:fontFamily="@font/lato_bold"
-                    android:text="Education"
-                    android:textColor="#0D0D0D"
-                    android:textSize="@dimen/_14sdp" />
-
-                <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/rv_education"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@+id/tv_education"
-                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-                    tools:itemCount="5"
-                    tools:listitem="@layout/item_edit_field" />
-
-                <include
-                    android:id="@+id/add_more_education"
-                    layout="@layout/layout_add_more"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@+id/rv_education"
-                    android:layout_alignParentEnd="true"
-                    android:layout_alignParentBottom="true"
-                    android:layout_gravity="bottom"
-                    android:layout_marginTop="@dimen/_12sdp" />
-            </RelativeLayout>
-
-            <Button
-                android:id="@+id/button"
-                android:layout_width="@dimen/_158sdp"
-                android:layout_height="@dimen/_48sdp"
-                android:fontFamily="@font/lato_black"
-                android:layout_gravity="center_horizontal"
-                android:text="Submit"
-                android:padding="@dimen/_8sdp"
-                android:layout_margin="@dimen/_48sdp"
-                android:textColor="#FFFFFF"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent" />
+                android:layout_marginStart="@dimen/_12sdp"
+                android:text="Fill form"
+                android:fontFamily="@font/lato_bold"
+                android:textColor="@color/black"
+                android:textSize="@dimen/_15sdp" />
         </LinearLayout>
 
 
-    </androidx.core.widget.NestedScrollView>
+        <androidx.core.widget.NestedScrollView
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/ll_fill_form_toolbar">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/constraintLayout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingBottom="@dimen/_12sdp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent">
 
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+                    <ImageView
+                        android:id="@+id/iv_upload"
+                        android:layout_width="@dimen/_115sdp"
+                        android:layout_height="@dimen/_115sdp"
+                        android:background="@drawable/bg_upload"
+                        android:padding="@dimen/_16sdp"
+                        android:scaleType="fitCenter"
+                        android:src="@drawable/ic_upload_icon"
+                        app:layout_constraintBottom_toTopOf="@+id/ll_fill_form"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <LinearLayout
+                        android:id="@+id/ll_fill_form"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="@dimen/_12sdp"
+                        android:gravity="center"
+                        android:onClick="@{() ->fragment.loadImageFromGallery()}"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/iv_upload">
+
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:src="@drawable/ic_camera" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="@dimen/_8sdp"
+                            android:fontFamily="@font/lato_bold"
+                            android:text="Upload photo"
+                            android:textColor="#4686E6"
+                            android:textSize="@dimen/_14sdp" />
+                    </LinearLayout>
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/white"
+                    android:padding="@dimen/_12sdp">
+
+                    <TextView
+                        android:id="@+id/tv_personal_detail"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="@dimen/_12sdp"
+                        android:fontFamily="@font/lato_bold"
+                        android:text="Personal Details"
+                        android:textColor="#0D0D0D"
+                        android:textSize="@dimen/_14sdp" />
+
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/rv_user_detail"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/tv_personal_detail"
+                        app:Context="@{context}"
+                        app:Interface="@{DeleteTableInterface}"
+                        app:UserMobileList="@{ViewModel.mobileNoList}"
+                        app:ViewModel="@{ViewModel}"
+                        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                        tools:itemCount="5"
+                        tools:listitem="@layout/item_edit_field" />
+
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_24sdp"
+                    android:background="@color/white"
+                    android:paddingStart="@dimen/_12sdp"
+                    android:paddingEnd="@dimen/_12sdp"
+                    android:paddingBottom="@dimen/_12sdp">
+
+
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/rv_address"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        app:Context="@{context}"
+                        app:Interface="@{DeleteTableInterface}"
+                        app:UserAddressList="@{ViewModel.addressList}"
+                        app:ViewModel="@{ViewModel}"
+                        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                        tools:itemCount="1"
+                        tools:listitem="@layout/item_address" />
+
+
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_24sdp"
+                    android:background="@color/white"
+                    android:paddingStart="@dimen/_12sdp"
+                    android:paddingEnd="@dimen/_12sdp"
+                    android:paddingBottom="@dimen/_12sdp">
+
+
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/rv_education"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        app:Context="@{context}"
+                        app:UserEducationList="@{ViewModel.educationList}"
+                        app:Interface="@{DeleteTableInterface}"
+                        app:ViewModel="@{ViewModel}"
+                        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                        tools:itemCount="1"
+                        tools:listitem="@layout/item_education" />
+
+
+                </RelativeLayout>
+
+                <Button
+                    android:id="@+id/button"
+                    android:layout_width="@dimen/_158sdp"
+                    android:layout_height="@dimen/_48sdp"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_margin="@dimen/_48sdp"
+                    android:fontFamily="@font/lato_black"
+                    android:onClick="@{() ->fragment.saveData()}"
+                    android:padding="@dimen/_8sdp"
+                    android:text="Submit"
+                    android:textColor="#FFFFFF"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent" />
+            </LinearLayout>
+
+
+        </androidx.core.widget.NestedScrollView>
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</layout>

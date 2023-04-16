@@ -1,17 +1,25 @@
 package com.abhishek.jarvish.db.table
 
+import android.os.Parcelable
+import androidx.annotation.NonNull
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 import androidx.room.Relation
+import kotlinx.parcelize.Parcelize
+import java.util.*
+import kotlin.collections.ArrayList
 
-
+@Parcelize
 @Entity(tableName = "user_detail_table")
 data class UserDetailTable(
 
-    @PrimaryKey(autoGenerate = true)
+    @PrimaryKey
     @ColumnInfo(name = "user_id")
-    var user_id: Int?,
+    var userId: String,
+
+    @ColumnInfo(name = "profile_image")
+    var profileImage: String?,
 
     @ColumnInfo(name = "first_name")
     var firstName: String?,
@@ -20,29 +28,7 @@ data class UserDetailTable(
     var lastName: String?,
 
     @ColumnInfo(name = "dob")
-    var dob: Int?,
+    var dob: Date?
+): Parcelable {
+}
 
-    @ColumnInfo(name = "mobile_no")
-    var mobileNo: Int?,
-
-    @Relation(
-        parentColumn = "id",
-        entityColumn = "userId"
-    )
-    val mobileList: List<MobileNo>,
-
-    @Relation(
-        parentColumn = "id",
-        entityColumn = "userId"
-    )
-    val addressList: List<Address>,
-
-
-    @Relation(
-        parentColumn = "id",
-        entityColumn = "userId"
-    )
-    val educationList: List<Education>
-
-
-)
