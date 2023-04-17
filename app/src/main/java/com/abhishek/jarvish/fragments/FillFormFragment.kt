@@ -74,6 +74,7 @@ class FillFormFragment : Fragment(), DeleteTablesDataInterface {
                 binding.ivUpload.setImageBitmap(bitmap)
             }
             fillFormViewModel.isSubmitButtonEnable()
+            fillFormViewModel.isProfileImageSelected.value=true
         } else {
             fillFormViewModel.addMobileData()
         }
@@ -87,7 +88,7 @@ class FillFormFragment : Fragment(), DeleteTablesDataInterface {
     }
 
     fun saveData() {
-        if (fillFormViewModel.isSubmitEnable.value==true && fillFormViewModel.isProfileImageSelected.value==true) {
+        if (fillFormViewModel.isSubmitEnable.value==true/* && fillFormViewModel.isProfileImageSelected.value==true*/) {
             if (arguments != null) {
                 userDetailSharedViewModel.updateData(
                     requireContext(),
@@ -109,11 +110,13 @@ class FillFormFragment : Fragment(), DeleteTablesDataInterface {
             validatorForAddressFields(binding.rvAddress)
             validatorForUserDetailFields(binding.rvUserDetail)
             validatorForEducationalFields(binding.rvEducation)
-            if(fillFormViewModel.isProfileImageSelected.value==false){
+            /*if(fillFormViewModel.isProfileImageSelected.value==false){
                 Utility.showSnackBar(view?.rootView!!,"Please Fill Empty Field of Form and Upload Profile Images as well")
             }else{
                 Utility.showSnackBar(view?.rootView!!,"Please Fill Empty Field of Form")
-            }
+            }*/
+            Utility.showSnackBar(view?.rootView!!,"Please Fill Empty Field of Form")
+
         }
 
     }
@@ -208,8 +211,7 @@ class FillFormFragment : Fragment(), DeleteTablesDataInterface {
     }
 
     private var takeGalleryForResult = registerForActivityResult<Intent, ActivityResult>(
-        ActivityResultContracts.StartActivityForResult()
-    ) { result: ActivityResult ->
+        ActivityResultContracts.StartActivityForResult()) { result: ActivityResult ->
         if (result.resultCode == Activity.RESULT_OK) {
             val data = result.data
             if (data != null && data.data != null) {

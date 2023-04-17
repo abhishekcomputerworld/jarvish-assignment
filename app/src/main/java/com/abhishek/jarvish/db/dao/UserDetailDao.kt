@@ -42,6 +42,8 @@ interface UserDetailDao {
     // Retrieval methods
     @Query("SELECT * FROM user_detail_table")
     fun getAllUserDetails(): LiveData<List<UserDetailTable>>
+    @Query("SELECT * FROM user_detail_table WHERE user_id = :userId")
+    fun getUserDetailById(userId: Int): LiveData<UserDetailTable>
 
     @Query("SELECT * FROM mobileNo WHERE user_id = :userId")
     fun getMobileNumbersByUserId(userId: Int): LiveData<List<MobileNo>>

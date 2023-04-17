@@ -48,6 +48,8 @@ dependencies {
     implementation 'androidx.navigation:navigation-fragment-ktx:2.5.3'
     implementation 'androidx.navigation:navigation-ui-ktx:2.5.3'
     testImplementation 'junit:junit:4.13.2'
+    testImplementation 'org.junit.jupiter:junit-jupiter'
+    testImplementation 'junit:junit:4.12'
     androidTestImplementation 'androidx.test.ext:junit:1.1.5'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.5.1'
 
@@ -70,8 +72,39 @@ dependencies {
     implementation 'com.intuit.ssp:ssp-android:1.1.0'
     implementation 'com.intuit.sdp:sdp-android:1.1.0'
 
-    //Path Getting
-    //implementation 'com.github.braver-tool:Android11FilePicker:1.0.0'
+
+    //test
+
+    // Core library
+    androidTestImplementation("androidx.test:core:1.5.0")
+
+    // AndroidJUnitRunner and JUnit Rules
+    androidTestImplementation("androidx.test:runner:1.5.2")
+    androidTestImplementation("androidx.test:rules:1.5.0")
+
+    // Assertions
+    androidTestImplementation("androidx.test.ext:junit:1.1.5")
+    androidTestImplementation("androidx.test.ext:truth:1.5.0")
+
+    // Espresso dependencies
+    androidTestImplementation( "androidx.test.espresso:espresso-core:3.5.1")
+    androidTestImplementation( "androidx.test.espresso:espresso-contrib:3.5.1")
+    androidTestImplementation( "androidx.test.espresso:espresso-intents:3.5.1")
+    androidTestImplementation( "androidx.test.espresso:espresso-accessibility:3.5.1")
+    androidTestImplementation( "androidx.test.espresso:espresso-web:3.5.1")
+    androidTestImplementation( "androidx.test.espresso.idling:idling-concurrent:3.5.1")
+
+    // The following Espresso dependency can be either "implementation",
+    // or "androidTestImplementation", depending on whether you want the
+    // dependency to appear on your APK"s compile classpath or the test APK
+    // classpath.
+    androidTestImplementation( "androidx.test.espresso:espresso-idling-resource:3.5.1")
+
+
+    testImplementation "androidx.arch.core:core-testing:2.2.0"
+    testImplementation 'org.mockito:mockito-core:3.12.4'
+
+
 
 }
 
