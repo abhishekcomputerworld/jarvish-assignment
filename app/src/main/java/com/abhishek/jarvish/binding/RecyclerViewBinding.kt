@@ -12,7 +12,7 @@ import com.abhishek.jarvish.db.table.Education
 import com.abhishek.jarvish.db.table.MobileNo
 import com.abhishek.jarvish.db.table.UserDetailWithRelations
 import com.abhishek.jarvish.interfaces.DeleteTablesDataInterface
-import com.abhishek.jarvish.viewholder.FillFormViewModel
+import com.abhishek.jarvish.viewModel.FillFormViewModel
 
 object RecyclerViewBinding {
 

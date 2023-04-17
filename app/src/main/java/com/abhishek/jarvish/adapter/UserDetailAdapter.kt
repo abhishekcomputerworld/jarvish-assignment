@@ -20,7 +20,7 @@ import com.abhishek.jarvish.databinding.ItemEditFieldBinding
 import com.abhishek.jarvish.db.table.MobileNo
 import com.abhishek.jarvish.interfaces.DeleteTablesDataInterface
 import com.abhishek.jarvish.utils.Constants
-import com.abhishek.jarvish.viewholder.FillFormViewModel
+import com.abhishek.jarvish.viewModel.FillFormViewModel
 import java.util.*
 
 class UserDetailAdapter(

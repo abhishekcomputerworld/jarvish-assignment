@@ -16,7 +16,7 @@ import com.abhishek.jarvish.databinding.ItemEducationBinding
 import com.abhishek.jarvish.db.table.Education
 import com.abhishek.jarvish.interfaces.DeleteTablesDataInterface
 import com.abhishek.jarvish.utils.Constants
-import com.abhishek.jarvish.viewholder.FillFormViewModel
+import com.abhishek.jarvish.viewModel.FillFormViewModel
 import java.util.*
 
 

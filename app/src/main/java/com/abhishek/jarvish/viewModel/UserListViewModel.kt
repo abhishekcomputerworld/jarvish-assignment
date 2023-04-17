@@ -1,9 +1,8 @@
-package com.abhishek.jarvish.viewholder
+package com.abhishek.jarvish.viewModel
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.abhishek.jarvish.db.table.UserDetailWithRelations
-import dagger.hilt.android.lifecycle.HiltViewModel
 
 
 class UserListViewModel : ViewModel() {

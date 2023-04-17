@@ -10,7 +10,7 @@
 
         <variable
             name="ViewModel"
-            type="com.abhishek.jarvish.viewholder.UserListViewModel" />
+            type="com.abhishek.jarvish.viewModel.UserListViewModel" />
 
         <variable
             name="UserEditInterface"

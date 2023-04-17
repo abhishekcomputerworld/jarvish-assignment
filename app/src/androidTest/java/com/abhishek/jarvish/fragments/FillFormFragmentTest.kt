@@ -1,29 +1,14 @@
 package com.abhishek.jarvish.fragments
 
-import android.Manifest
-import android.app.Activity
-import android.content.Intent
-import android.content.pm.PackageManager
-import android.graphics.Bitmap
-import android.provider.MediaStore
-import androidx.core.app.ActivityCompat
-import androidx.core.content.ContextCompat
 import androidx.fragment.app.FragmentActivity
-import androidx.lifecycle.MutableLiveData
-import androidx.test.core.app.ApplicationProvider
 import androidx.test.ext.junit.runners.AndroidJUnit4
-import com.abhishek.jarvish.viewholder.FillFormViewModel
+import com.abhishek.jarvish.viewModel.FillFormViewModel
 import org.junit.Assert.*
-import org.junit.Before
 import androidx.test.rule.ActivityTestRule
 import com.abhishek.jarvish.activities.MainActivity
-import org.junit.Assert.*
 import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
-import org.mockito.Mockito
-import org.mockito.Mockito.`when`
-import java.io.File
 
 @RunWith(AndroidJUnit4::class)
 class FillFormFragmentTest {

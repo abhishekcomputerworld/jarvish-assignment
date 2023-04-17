@@ -1,4 +1,4 @@
-package com.abhishek.jarvish.viewholder
+package com.abhishek.jarvish.viewModel
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel

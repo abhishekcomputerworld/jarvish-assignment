@@ -33,7 +33,7 @@ import com.abhishek.jarvish.db.table.MobileNo
 import com.abhishek.jarvish.db.table.UserDetailWithRelations
 import com.abhishek.jarvish.interfaces.DeleteTablesDataInterface
 import com.abhishek.jarvish.utils.Utility
-import com.abhishek.jarvish.viewholder.FillFormViewModel
+import com.abhishek.jarvish.viewModel.FillFormViewModel
 import java.io.File
 import java.io.FileOutputStream
 import java.io.IOException

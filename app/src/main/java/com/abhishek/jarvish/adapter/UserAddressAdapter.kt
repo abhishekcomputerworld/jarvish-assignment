@@ -13,7 +13,7 @@ import com.abhishek.jarvish.databinding.ItemAddressBinding
 import com.abhishek.jarvish.db.table.Address
 import com.abhishek.jarvish.interfaces.DeleteTablesDataInterface
 import com.abhishek.jarvish.utils.Constants
-import com.abhishek.jarvish.viewholder.FillFormViewModel
+import com.abhishek.jarvish.viewModel.FillFormViewModel
 import java.util.*
 
 class UserAddressAdapter(

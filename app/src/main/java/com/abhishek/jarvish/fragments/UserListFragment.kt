@@ -16,7 +16,7 @@ import com.abhishek.jarvish.adapter.UserListAdapter
 import com.abhishek.jarvish.databinding.FragmentUserListBinding
 import com.abhishek.jarvish.db.UserDetailViewModel
 import com.abhishek.jarvish.db.table.UserDetailWithRelations
-import com.abhishek.jarvish.viewholder.UserListViewModel
+import com.abhishek.jarvish.viewModel.UserListViewModel
 
 
 class UserListFragment : Fragment(), UserListAdapter.UserEditClick {
