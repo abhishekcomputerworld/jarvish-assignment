@@ -59,7 +59,6 @@ class UserAddressAdapter(
                             fillFormViewModel.isSubmitEnable.value = checkIfAllFieldsFilled()
                         }
                     }
-
                 } else {
                     userAddressViewHolder.binding.ivDelete.visibility = View.GONE
                 }

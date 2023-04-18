@@ -210,7 +210,8 @@ class UserDetailAdapter(
                         userAddressViewHolder.binding.textInputEdittext.requestFocus()
                     }
                 }
-            }else{
+            }
+            else{
                 val addMoreViewHolder: AddMoreViewHolder = holder as AddMoreViewHolder
                 addMoreViewHolder.binding.addMore = "Add more mobile no."
                 addMoreViewHolder.binding.llAddMore.setOnClickListener {

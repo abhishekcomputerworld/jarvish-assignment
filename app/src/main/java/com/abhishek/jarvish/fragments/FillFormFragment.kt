@@ -75,7 +75,8 @@ class FillFormFragment : Fragment(), DeleteTablesDataInterface {
             }
             fillFormViewModel.isSubmitButtonEnable()
             fillFormViewModel.isProfileImageSelected.value=true
-        } else {
+        }
+        else {
             fillFormViewModel.addMobileData()
         }
         binding.executePendingBindings()
@@ -110,11 +111,13 @@ class FillFormFragment : Fragment(), DeleteTablesDataInterface {
             validatorForAddressFields(binding.rvAddress)
             validatorForUserDetailFields(binding.rvUserDetail)
             validatorForEducationalFields(binding.rvEducation)
-            /*if(fillFormViewModel.isProfileImageSelected.value==false){
+            /*
+            if(fillFormViewModel.isProfileImageSelected.value==false){
                 Utility.showSnackBar(view?.rootView!!,"Please Fill Empty Field of Form and Upload Profile Images as well")
             }else{
                 Utility.showSnackBar(view?.rootView!!,"Please Fill Empty Field of Form")
-            }*/
+            }
+            */
             Utility.showSnackBar(view?.rootView!!,"Please Fill Empty Field of Form")
 
         }

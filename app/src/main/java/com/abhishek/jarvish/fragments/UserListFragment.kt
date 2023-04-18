@@ -54,9 +54,10 @@ class UserListFragment : Fragment(), UserListAdapter.UserEditClick {
             ?.observe(requireActivity(), Observer {
                 if (isAdded && context != null && it.isNotEmpty()) {
                     //  userDetailList = it.sortedBy { it.userDetail.firstName } as ArrayList<UserDetailWithRelations>
-                   // userDetailList = it.reversed() as ArrayList<UserDetailWithRelations>
-                    val originalList: List<UserDetailWithRelations> = it.reversed() as List<UserDetailWithRelations>
-                     userDetailList = ArrayList(originalList)
+                    // userDetailList = it.reversed() as ArrayList<UserDetailWithRelations>
+                    val originalList: List<UserDetailWithRelations> =
+                        it.reversed() as List<UserDetailWithRelations>
+                    userDetailList = ArrayList(originalList)
                     userListViewModel.userList.value = userDetailList
                 }
             })
@@ -106,5 +107,7 @@ class UserListFragment : Fragment(), UserListAdapter.UserEditClick {
         findNavController().navigate(R.id.action_SecondFragment_to_FirstFragment, bundle)
     }
 
-
+    fun newForm() {
+        findNavController().navigate(R.id.action_SecondFragment_to_FirstFragment)
+    }
 }
