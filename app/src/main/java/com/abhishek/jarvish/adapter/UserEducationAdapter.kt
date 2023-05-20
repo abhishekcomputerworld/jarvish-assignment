@@ -146,8 +146,7 @@ class UserEducationAdapter(
                     )
                 )
                 //   userEducationViewHolder.binding.etEndYear.textInputEdittext.setAdapter(ArrayAdapter.createFromResource(context, R.array.education_end_years, android.R.layout.simple_dropdown_item_1line))
-                val educationEndYears =
-                    context.resources.getStringArray(R.array.education_end_years)
+                val educationEndYears = context.resources.getStringArray(R.array.education_end_years)
                 userEducationViewHolder.binding.etStartYear.textInputEdittext.setOnItemClickListener { parent, view, position, id ->
                     val startYear = parent.getItemAtPosition(position).toString()
                     userEducationViewHolder.binding.etEndYear.textInputEdittext.setAdapter(
